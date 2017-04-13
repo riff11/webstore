@@ -7,20 +7,20 @@ import com.derkach.webstore.domain.Producer;
 
 
 /**
- * dao interface
+ * Dao interface.
  * @author alex
  *
  */
 public interface ProducersDao {
 
-	void searchCategory(Producer Producer);
+	List<Producer> searchProducer(Producer producer);
 
-	List<Producer> editCategory(Producer Producer);
+	List<Producer> editProducer(Producer producer);
 	
-	void deleteCategory(Producer Producer);
+	void deleteProducer(Producer producer);
 	
 	List<Producer> findAll();
 	
-	void updateCategory(Producer Producer);
+	void updateProducer(Producer producer);
 
 }

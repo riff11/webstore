@@ -4,133 +4,142 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
-import javax.sql.DataSource;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import com.derkach.webstore.domain.Category;
 
 /**
- * dao implementation
+ * Dao implementation.
  * 
  * @author alex
  * 
  */
+@Repository 
 public class CategoriesDaoImpl implements CategoriesDao {
-
+	@Autowired
 	private JdbcTemplate jdbcTemplate;
 
-	public void setDataSource(DataSource dataSource) {
-		this.jdbcTemplate = new JdbcTemplate(dataSource);
-	}
-
 	/**
-	 * insert category in to the db
+	 * Insert category in to the db.
 	 */
 	public void insertCategory(Category category) {
 
-		String query = "insert into CategoryS (NAME,DOB,EMAIL,PHONE,ADDRESS,PINCODE,COUNTRY)"
-				+ " VALUES (?,?,?,?,?,?,?)";
+		String query = "insert into categories (`name`, `parent_id`)"
+				+ " VALUES (?,?)";
 
-//		jdbcTemplate.update(query,
-//				new Object[] { category.getName(), category.getDate(), category.getEmail(),
-//						category.getPhone(), category.getAddress(), category.getPincode(),
-//						category.getCountry() });
+		jdbcTemplate.update(query,
+				new Object[] { category.getName(), category.getParentId() });
 
 	}
 
 	/**
-	 * delete category from db
+	 * Delete category from db.
 	 */
-	public void deleteCategory1(Category Category) {
+	public void deleteCategory(Category category) {
 
-		String query = "delete from CategoryS where ID='" + Category.getId() + "'";
+		String query = "delete from categories where ID='" + category.getId()
+				+ "'";
+
+		System.out.println("query formed with all the argument - " + query);
 
 		jdbcTemplate.update(query);
 
 	}
 
-//	/**
-//	 * search category in db
-//	 * 
-//	 * @return List<Category>
-//	 */
-//	public List<Category> searchCategory1(Category Category) {
-//
-//		String queryinitial = "select * from CategoryS where NAME ='"
-//				+ Category.getName() + "'";
-//
-//		System.out.println("query formed with all the argument - "
-//				+ queryinitial);
-//
-//		RowMapper rm = null;
-////		List<Category> listcontacct = jdbcTemplate.query(queryinitial,
-////				new RowMapper() {
-////					public Object mapRow(ResultSet resultSet, int rowNum)
-////							throws SQLException {
-////						return new Category(resultSet.getInt("id"), resultSet
-////								.getString("name"), resultSet.getString("dob"),
-////								resultSet.getString("email"), resultSet
-////										.getString("phone"), resultSet
-////										.getString("address"), resultSet
-////										.getString("PINCODE"), resultSet
-////										.getString("country"));
-////					}
-////				});
-//
-//		return listcontacct;
-//	}
+	/**
+	 * Search category in db.
+	 * 
+	 * @return List<Category>
+	 */
+	public List<Category> searchCategory(Category category) {
 
-//	/**
-//	 * find category in db
-//	 * 
-//	 * @return List<Category>
-//	 */
-//	public List<Category> findAll() {
-//		String queryinitial = "select * from CategoryS ";
-//
-//		System.out.println("query formed with all the argument - "
-//				+ queryinitial);
-//
-//		RowMapper rm = null;
-//		List<Category> CategoryList = jdbcTemplate.query(queryinitial, new RowMapper() {
-//			public Object mapRow(ResultSet resultSet, int rowNum)
-//					throws SQLException {
-//				return new Category(resultSet.getInt("id"), resultSet
-//						.getString("name"), resultSet.getString("dob"),
-//						resultSet.getString("email"), resultSet
-//								.getString("phone"), resultSet
-//								.getString("address"), resultSet
-//								.getString("PINCODE"), resultSet
-//								.getString("country"));
-//			}
-//		});
-//
-//		return CategoryList;
-//	}
+		String queryinitial = "select * from categories where NAME ='"
+				+ category.getName() + "'";
 
-//	/**
-//	 * update category record
-//	 */
-//	public void updateCategory1(Category Category) {
-//		String queryinitial = "update CategoryS set name='" + Category.getName()
-//				+ "', email='" + Category.getEmail() + "', dob='" + Category.getDate()
-//				+ "',phone='" + Category.getPhone() + "', address='"
-//				+ Category.getAddress() + "' , pincode='" + Category.getPincode()
-//				+ "', country='" + Category.getCountry() + "' where id='"
-//				+ Category.getId() + "'";
-//
-//		jdbcTemplate.update(queryinitial);
-//
-//		System.out.println("query formed with all the argument - "
-//				+ queryinitial);
-//	}
+		System.out.println("query formed with all the argument - "
+				+ queryinitial);
 
-	@Override
-	public void searchCategory(Category category) {
-		// TODO Auto-generated method stub
+		RowMapper rm = null;
+		List<Category> listcontacct = jdbcTemplate.query(queryinitial,
+				new RowMapper() {
+					public Object mapRow(ResultSet resultSet, int rowNum)
+							throws SQLException {
+						return new Category(resultSet.getInt("id"), resultSet
+								.getString("name"), resultSet
+								.getInt("parent_id"));
+					}
+				});
 
+		return listcontacct;
+	}
+
+	/**
+	 * Find category in db.
+	 * 
+	 * @return List<Category>
+	 */
+	public List<Category> findAll() {
+		String queryinitial = "select * from categories ";
+
+		System.out.println("query formed with all the argument - "
+				+ queryinitial);
+
+		RowMapper rm = null;
+		List<Category> CategoryList = jdbcTemplate.query(queryinitial,
+				new RowMapper() {
+					public Object mapRow(ResultSet resultSet, int rowNum)
+							throws SQLException {
+						return new Category(resultSet.getInt("id"), resultSet
+								.getString("name"), resultSet
+								.getInt("parent_id"));
+					}
+				});
+
+		return CategoryList;
+	}
+
+	/**
+	 * Find root category in db.
+	 * 
+	 * @return List<Category>
+	 */
+	public List<Category> findRoot() {
+		String queryinitial = "select * from categories where parentId is null";
+
+		System.out.println("query formed with all the argument - "
+				+ queryinitial);
+
+		RowMapper rm = null;
+		List<Category> CategoryList = jdbcTemplate.query(queryinitial,
+				new RowMapper() {
+					public Object mapRow(ResultSet resultSet, int rowNum)
+							throws SQLException {
+						return new Category(resultSet.getInt("id"), resultSet
+								.getString("name"), resultSet
+								.getInt("parent_id"));
+					}
+				});
+
+		return CategoryList;
+	}
+	
+	/**
+	 * Update category record.
+	 */
+	public void updateCategory(Category category) {
+		String queryinitial = "update categories set name='"
+				+ category.getName() + "', parent_id='"
+				+ category.getParentId() + "' where id='" + category.getId()
+				+ "'";
+
+		jdbcTemplate.update(queryinitial);
+
+		System.out.println("query formed with all the argument - "
+				+ queryinitial);
 	}
 
 	@Override
@@ -139,21 +148,5 @@ public class CategoriesDaoImpl implements CategoriesDao {
 		return null;
 	}
 
-	@Override
-	public void deleteCategory(Category category) {
-		// TODO Auto-generated method stub
 
-	}
-
-	@Override
-	public void updateCategory(Category category) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public List<Category> findAll() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 }

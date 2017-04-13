@@ -12,7 +12,7 @@ import com.derkach.webstore.domain.Category;
  */
 public interface CategoriesDao {
 
-	void searchCategory(Category user);
+	List<Category> searchCategory(Category user);
 
 	List<Category> editCategory(Category user);
 	

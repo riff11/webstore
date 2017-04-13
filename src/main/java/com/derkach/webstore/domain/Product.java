@@ -9,8 +9,34 @@ public class Product {
 	private String description;
 	private String image;
 	private String available;
+	private Integer producer_fk;
+	private Integer categories_fk;
 	
 	
+	/**
+	 * 
+	 * @param id
+	 * @param name
+	 * @param price
+	 * @param description
+	 * @param image
+	 * @param available
+	 * @param producer_fk
+	 * @param categories_fk
+	 */
+	public Product(Integer id, String name, String price, String description,
+			String image, String available, Integer producer_fk,
+			Integer categories_fk) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.price = price;
+		this.description = description;
+		this.image = image;
+		this.available = available;
+		this.producer_fk = producer_fk;
+		this.categories_fk = categories_fk;
+	}
 	public Integer getId() {
 		return id;
 	}
@@ -46,6 +72,18 @@ public class Product {
 	}
 	public void setImage(String image) {
 		this.image = image;
+	}
+	public Integer getProducer_fk() {
+		return producer_fk;
+	}
+	public void setProducer_fk(Integer producer_fk) {
+		this.producer_fk = producer_fk;
+	}
+	public Integer getCategories_fk() {
+		return categories_fk;
+	}
+	public void setCategories_fk(Integer categories_fk) {
+		this.categories_fk = categories_fk;
 	}
 	
 	

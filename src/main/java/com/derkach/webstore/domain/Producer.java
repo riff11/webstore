@@ -4,6 +4,14 @@ package com.derkach.webstore.domain;
 public class Producer {
 	private Integer id;
 	private String name;
+	
+	
+	
+	public Producer(Integer id, String name) {
+		super();
+		this.id = id;
+		this.name = name;
+	}
 	public Integer getId() {
 		return id;
 	}

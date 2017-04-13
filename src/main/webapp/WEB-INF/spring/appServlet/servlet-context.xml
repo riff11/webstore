@@ -7,6 +7,7 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
 		 http://www.springframework.org/schema/jdbc
        http://www.springframework.org/schema/jdbc/spring-jdbc-3.0.xsd">
+       
 
 	<!-- DispatcherServlet Context: defines this servlet's request-processing 
 		infrastructure -->
@@ -20,8 +21,8 @@
 
 	<!-- Below configuration has been added to enable in memory DB H2DB -->
 	<jd:embedded-database id="dataSource1" type="H2">
-		<jd:script location="classpath:schema.sql" /> 
-		<jd:script location="classpath:test-data.sql"/>
+		<jd:script location="classpath:schema.sql" />
+		<jd:script location="classpath:test-data.sql" />
 	</jd:embedded-database>
 
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources 
@@ -34,8 +35,30 @@
 
 	<context:component-scan base-package="com.derkach.webstore" />
 
-	<!-- <bean id="SpringJdbcDao" class="com.">
-		<property name="dataSource" ref="dataSource1" />
-	</bean> -->
+	<!-- JdbcTemplate -->
+	<beans:bean class="org.springframework.jdbc.core.JdbcTemplate">
+		<beans:property name="dataSource" ref="dataSource1"></beans:property>
+	</beans:bean>
+
+	<!-- <bean id="SpringJdbcDao" class="com."> <property name="dataSource" 
+		ref="dataSource1" /> </bean> -->
+
+	<beans:bean depends-on="dataSource1"
+		class="org.springframework.beans.factory.config.MethodInvokingBean">
+		<beans:property name="targetClass"
+			value="org.hsqldb.util.DatabaseManagerSwing" />
+		<beans:property name="targetMethod" value="main" />
+		<beans:property name="arguments">
+			<beans:list>
+				<beans:value>--url</beans:value>
+				<beans:value>jdbc:h2:mem:dataSource1</beans:value>
+				<!-- <beans:value>jdbc:hsqldb:mem:dataSource1</beans:value> -->
+				<beans:value>--user</beans:value>
+				<beans:value>sa</beans:value>
+				<beans:value>--password</beans:value>
+				<beans:value></beans:value>
+			</beans:list>
+		</beans:property>
+	</beans:bean>
 
 </beans:beans>
