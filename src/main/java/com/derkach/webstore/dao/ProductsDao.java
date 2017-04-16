@@ -3,6 +3,7 @@ package com.derkach.webstore.dao;
 
 import java.util.List;
 
+import com.derkach.webstore.domain.Category;
 import com.derkach.webstore.domain.Product;
 
 
@@ -17,10 +18,13 @@ public interface ProductsDao {
 
 	List<Product> editProduct( Product product);
 	
+	List<Product> searchProductByCategory( String string);
+	
 	void deleteProduct( Product product);
 	
 	List<Product> findAll();
 	
 	void updateProduct( Product product);
+	
 
 }

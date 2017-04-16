@@ -55,10 +55,10 @@ public class CategoriesDaoImpl implements CategoriesDao {
 	 * 
 	 * @return List<Category>
 	 */
-	public List<Category> searchCategory(Category category) {
+	public List<Category> searchCategoriesByParentsId(String categoryId) {
 
-		String queryinitial = "select * from categories where NAME ='"
-				+ category.getName() + "'";
+		String queryinitial = "select * from categories where parent_id ='"
+				+ categoryId + "'";
 
 		System.out.println("query formed with all the argument - "
 				+ queryinitial);
@@ -108,7 +108,7 @@ public class CategoriesDaoImpl implements CategoriesDao {
 	 * @return List<Category>
 	 */
 	public List<Category> findRoot() {
-		String queryinitial = "select * from categories where parentId is null";
+		String queryinitial = "select * from categories where parent_id is null";
 
 		System.out.println("query formed with all the argument - "
 				+ queryinitial);

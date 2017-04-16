@@ -37,6 +37,15 @@ public class Product {
 		this.producer_fk = producer_fk;
 		this.categories_fk = categories_fk;
 	}
+	
+	@Override
+	public String toString() {
+		return "Product [id=" + id + ", name=" + name + ", price=" + price
+				+ ", description=" + description + ", image=" + image
+				+ ", available=" + available + ", producer_fk=" + producer_fk
+				+ ", categories_fk=" + categories_fk + "]";
+	}
+
 	public Integer getId() {
 		return id;
 	}

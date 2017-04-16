@@ -11,6 +11,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
+import com.derkach.webstore.domain.Category;
 import com.derkach.webstore.domain.Product;
 
 /**
@@ -19,7 +20,7 @@ import com.derkach.webstore.domain.Product;
  * @author alex
  * 
  */
-@Repository 
+@Repository
 public class ProductsDaoImpl implements ProductsDao {
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
@@ -134,11 +135,36 @@ public class ProductsDaoImpl implements ProductsDao {
 
 	}
 
-
 	@Override
 	public List<Product> editProduct(Product product) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
+	@Override
+	public List<Product> searchProductByCategory(String string) {
+		 String queryinitial = "select * from products where categories_fk ='"
+				+ string + "'";
+
+		System.out.println("query formed with all the argument - "
+				+ queryinitial);
+
+		RowMapper rm = null;
+		List<Product> listcontacct = jdbcTemplate.query(queryinitial,
+				new RowMapper() {
+					public Object mapRow(ResultSet resultSet, int rowNum)
+							throws SQLException {
+						return new Product(resultSet.getInt("id"), resultSet
+								.getString("name"), resultSet
+								.getString("price"), resultSet
+								.getString("description"), resultSet
+								.getString("image"), resultSet
+								.getString("available"), resultSet
+								.getInt("producer_fk"), resultSet
+								.getInt("categories_fk"));
+					}
+				});
+
+		return listcontacct;
+	}
 }

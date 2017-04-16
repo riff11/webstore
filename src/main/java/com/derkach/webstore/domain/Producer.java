@@ -24,6 +24,10 @@ public class Producer {
 	public void setName(String name) {
 		this.name = name;
 	}
+	@Override
+	public String toString() {
+		return "Producer [id=" + id + ", name=" + name + "]";
+	}
 	
 	
 	
