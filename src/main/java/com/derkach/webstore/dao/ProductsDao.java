@@ -18,7 +18,7 @@ public interface ProductsDao {
 
 	List<Product> editProduct( Product product);
 	
-	List<Product> searchProductByCategory( String string);
+	List<Product> searchProductByCategory( Integer i);
 	
 	void deleteProduct( Product product);
 	

@@ -18,7 +18,7 @@ import com.derkach.webstore.domain.Category;
  * @author alex
  * 
  */
-@Repository 
+@Repository
 public class CategoriesDaoImpl implements CategoriesDao {
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
@@ -126,7 +126,7 @@ public class CategoriesDaoImpl implements CategoriesDao {
 
 		return CategoryList;
 	}
-	
+
 	/**
 	 * Update category record.
 	 */
@@ -148,5 +148,23 @@ public class CategoriesDaoImpl implements CategoriesDao {
 		return null;
 	}
 
+	@Override
+	public List<Category> findSiblings(int i) {
+		String queryinitial = "select * from categories where id=" + i;
 
+		RowMapper rm = null;
+		List<Category> listCategory = jdbcTemplate.query(queryinitial,
+				new RowMapper() {
+					public Object mapRow(ResultSet resultSet, int rowNum)
+							throws SQLException {
+						return new Category(resultSet.getInt("id"), resultSet
+								.getString("name"), resultSet
+								.getInt("parent_id"));
+					}
+				});		
+		System.out.println("query formed with all the argument - "
+				+ queryinitial);
+		
+		return searchCategoriesByParentsId(String.valueOf(listCategory.get(0).getParentId()));
+	}
 }

@@ -24,7 +24,8 @@ public class CategoriesController {
 	@Autowired
 	CategoryService categoryService;
 	
-	@RequestMapping(value = "/categories/getRoot.json", method = RequestMethod.GET, produces= "application/json")
+	
+	@RequestMapping(value = "catalog/getRoot.json", method = RequestMethod.GET, produces= "application/json")
 	public ModelAndView getRootCategory(){
 		ModelAndView mav = new ModelAndView("home");
 		List<Category> categories = categoryService.findRoot();
@@ -32,7 +33,7 @@ public class CategoriesController {
 		return mav;		
 	}
 	
-	@RequestMapping(value = "/categories/getlist.json", method = RequestMethod.POST, produces="application/json")
+	@RequestMapping(value = "catalog/getlist.json", method = RequestMethod.POST, produces="application/json")
 	public  @ResponseBody List getCategory(@RequestBody String categoryId){
 		List<Category> categories = categoryService.searchCategoriesByParentsId(categoryId.replaceAll(String.valueOf('"'), ""));
 //		mav.addObject("categories", categories);

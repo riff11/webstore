@@ -1,10 +1,12 @@
 $(document)
 		.ready(
 				function() {
+
 					var selectArrays = [];
 					// var f = eval('(' + '${productTypesRoot}' + ')');
-					selectArrays[0] = JSON.parse(productTypesRoot);
-//					alert(productTypesRoot);
+					selectArrays[0] = JSON.parse(jsonCategoryRoot);
+
+					// alert(productTypesRoot);
 					for ( var i = 0; i < selectArrays[0].length; i++) {
 						$('#type')
 								.append(
@@ -12,20 +14,37 @@ $(document)
 												+ selectArrays[0][i].name
 												+ '</option>');
 					}
+
+					if (jsonSiblingsCategory != "") {
+						selectArrays[1] = JSON.parse(jsonSiblingsCategory);
+						$("#child").prop('disable', false);
+						for ( var i = 0; i < selectArrays[1].length; i++) {
+							$('#child').append(
+									'<option value="' + (i + 1) + '">'
+											+ selectArrays[1][i].name
+											+ '</option>');
+						}
+						
+					}
+
+					$("#type").val(rootSelected);
+					$("#child").val(childSelected);
 					$("#type")
 							.change(
 									function() {
 
 										$("#child").find("option")
-												.not(":first").remove().end()
-												.prop('disable', true);
+												.not(":first").remove().end();
+//												.prop('disabled', true);
 										var type_id = $('#type').val();
+										window.typeSelected = type_id;
 										if (type_id == 0) {
 											return;
 										}
 										$
 												.ajax({
-													url : 'categories/getlist.json',
+													url : pageContext
+															+ '/catalog/getlist.json',
 													type : 'POST',
 													contentType : 'application/json; charset=utf-8',
 													/* dataType : 'json', */
@@ -56,51 +75,142 @@ $(document)
 
 												});
 									});
-					$("#child")
-							.change(
-									function() {
+					$("#child").change(
+							function() {
 
-										var type_id = $('#child').val();
-										if (type_id == 0) {
-											return;
-										}
-										$
-												.ajax({
-													url : 'categories/getProducts.json',
-													type : 'POST',
-													contentType : 'application/json; charset=utf-8',
-													/* dataType : 'json', */
-													data : JSON
-															.stringify(selectArrays[1][type_id - 1].id),
-													error : function() {
-														alert("При выполнении запроса произошла ошибка :(");
-													},
+								var type_id = $('#child').val();
+								childSelected = type_id;
+								if (type_id == 0) {
+									return;
+								}
+								// $.get("catalog/"+selectArrays[1][type_id -
+								// 1].id);
+								window.location.href = pageContext
+										+ "/catalog/"
+										+ selectArrays[1][type_id - 1].id;
+								// $
 
-													success : function(
-															listProducts) {
-														$("#products div").remove();
-														for ( var i = 0; i < listProducts.length; i++) {
-															$('#products')
-																	.append(
-																			
-																			'<div id="new_item"> '
-																					+ '<div id="new_item_header">  <h1>'
-																					+ listProducts[i].name
-																					+ '</h1></div>	<div id="new_item_image">'
-																					+ '<img src="'
-																					+ listProducts[i].image
-																					+ '" height="150" alt="New Item Name" />	</div>	<div class="price">	<h2>'
-																					+ listProducts[i].price
-																					+ '</h2> </div>'
-																					+ '</div>'
-																					 );
-//															alert(listProducts[i].name);
-														}
-
-													}
-
-												});
-									});
+								// var typeSelected=0;
+								// var childSelected=0;
+								// var selectArrays = [];
+								// // var f = eval('(' + '${productTypesRoot}' +
+								// ')');
+								// selectArrays[0] =
+								// JSON.parse(productTypesRoot);
+								// // alert(productTypesRoot);
+								// for ( var i = 0; i < selectArrays[0].length;
+								// i++) {
+								// $('#type')
+								// .append(
+								// '<option value="' + (i + 1) + '">'
+								// + selectArrays[0][i].name
+								// + '</option>');
+								// }
+								//					
+								// $("#type").val(typeSelected);
+								// $("#child").val(typeSelected);
+								// $("#type")
+								// .change(
+								// function() {
+								//
+								// $("#child").find("option")
+								// .not(":first").remove().end()
+								// .prop('disable', true);
+								// var type_id = $('#type').val();
+								// window.typeSelected = type_id;
+								// if (type_id == 0) {
+								// return;
+								// }
+								// $
+								// .ajax({
+								// url : pageContext + '/catalog/getlist.json',
+								// type : 'POST',
+								// contentType : 'application/json;
+								// charset=utf-8',
+								// /* dataType : 'json', */
+								// data : JSON
+								// .stringify(selectArrays[0][type_id - 1].id),
+								// /* .stringify(selectArrays[0][type_id].id),
+								// */
+								// error : function() {
+								// alert("При выполнении запроса произошла
+								// ошибка :(");
+								// },
+								//
+								// success : function(listCat) {
+								// selectArrays[1] = listCat;
+								// for ( var i = 0; i < listCat.length; i++) {
+								// $('#child')
+								// .append(
+								// '<option value="'
+								// + (i + 1)
+								// + '">'
+								// + listCat[i].name
+								// + '</option>');
+								// }
+								// $('#child').prop(
+								// 'disabled',
+								// false); // Включаем
+								// // поле
+								//
+								// }
+								//
+								// });
+								// });
+								// $("#child")
+								// .change(
+								// function() {
+								//
+								// var type_id = $('#child').val();
+								// childSelected = type_id;
+								// if (type_id == 0) {
+								// return;
+								// }
+								// // $.get("catalog/"+selectArrays[1][type_id -
+								// 1].id);
+								// window.location.href = pageContext
+								// +"/catalog/"+selectArrays[1][type_id - 1].id;
+								// // $
+								// .ajax({
+								// url : 'categories/getProducts.json',
+								// type : 'POST',
+								// contentType : 'application/json;
+								// charset=utf-8',
+								// /* dataType : 'json', */
+								// data : JSON
+								// .stringify(selectArrays[1][type_id - 1].id),
+								// error : function() {
+								// alert("При выполнении запроса произошла
+								// ошибка :(");
+								// },
+								//
+								// success : function(
+								// listProducts) {
+								// $("#products div").remove();
+								// for ( var i = 0; i < listProducts.length;
+								// i++) {
+								// $('#products')
+								// .append(
+								//																			
+								// '<div id="new_item"> '
+								// + '<div id="new_item_header"> <h1>'
+								// + listProducts[i].name
+								// + '</h1></div> <div id="new_item_image">'
+								// + '<img src="'
+								// + listProducts[i].image
+								// + '" height="150" alt="New Item Name" />
+								// </div> <div class="price"> <h2>'
+								// + listProducts[i].price
+								// + '</h2> </div>'
+								// + '</div>'
+								// );
+								// // alert(listProducts[i].name);
+								// }
+								//
+								// }
+								//
+								// });
+							});
 
 					// : function() {
 					// progress.startInfinite('Получение категорий

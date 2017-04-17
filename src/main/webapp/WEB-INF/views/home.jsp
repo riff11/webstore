@@ -7,13 +7,17 @@
 <link href="<c:url value="/resources/css/style.css" />" rel="stylesheet"
 	type="text/css" media="screen" />
 <script type="text/javascript"
-	src="<c:url value="resources/js/jquery-1.9.1.js" />"></script>
+	src="<c:url value="/resources/js/jquery-1.9.1.js" />"></script>
 <script>
-	var productTypesRoot = '${productTypesRoot}';
-	//alert('applicationFacebookId:' + applicationFacebookId);
+	var jsonCategoryRoot = "${jsonCategoryRoot}";
+	var pageContext = "${pageContext.request.contextPath}";
+	var rootSelected = "${rootSelected}";
+	var childSelected = "${childSelected}";
+	var jsonSiblingsCategory = "${jsonSiblingsCategory}";
+	alert('jsonCategoryRoot:' + '${jsonCategoryRoot}'); 
 </script>
 <script type="text/javascript"
-	src="<c:url value="resources/js/home.js" />"></script>
+	src="<c:url value="/resources/js/home.js" />"></script>
 
 <title>Shop</title>
 </head>
@@ -166,7 +170,8 @@
 
 						</div>
 						<div id="new_item_image">
-							<img src="${prod.image}" height="150" alt="New Item Name" />
+							<img src="${pageContext.request.contextPath}/${prod.image}"
+								height="150" alt="New Item Name" />
 						</div>
 						<div class="price">
 							<h2>${prod.price}</h2>

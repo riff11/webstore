@@ -142,9 +142,9 @@ public class ProductsDaoImpl implements ProductsDao {
 	}
 
 	@Override
-	public List<Product> searchProductByCategory(String string) {
+	public List<Product> searchProductByCategory(Integer i) {
 		 String queryinitial = "select * from products where categories_fk ='"
-				+ string + "'";
+				+ i + "'";
 
 		System.out.println("query formed with all the argument - "
 				+ queryinitial);

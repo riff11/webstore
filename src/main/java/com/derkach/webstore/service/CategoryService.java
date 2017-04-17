@@ -10,33 +10,36 @@ import com.derkach.webstore.domain.Category;
 
 @Service
 public class CategoryService {
-	
+
 	@Autowired
 	CategoriesDaoImpl categoriesDaoImpl;
-	
-	public List<Category> searchCategoriesByParentsId(String categoryId){
+
+	public List<Category> searchCategoriesByParentsId(String categoryId) {
 		return categoriesDaoImpl.searchCategoriesByParentsId(categoryId);
 	}
 
-	public List<Category> editCategory(Category category){
+	public List<Category> editCategory(Category category) {
 		return categoriesDaoImpl.editCategory(category);
 	}
-	
-	public  void deleteCategory(Category category){
+
+	public void deleteCategory(Category category) {
 		categoriesDaoImpl.deleteCategory(category);
 	}
-	
-	public List<Category> findAll(){
+
+	public List<Category> findAll() {
 		return categoriesDaoImpl.findAll();
 	}
-	
-	
-	public List<Category> findRoot(){
+
+	public List<Category> findRoot() {
 		return categoriesDaoImpl.findRoot();
 	}
-	
-	public void updateCategory(Category category){
+
+	public void updateCategory(Category category) {
 		categoriesDaoImpl.updateCategory(category);
+	}
+
+	public List<Category> findSiblings(int i) {
+		return categoriesDaoImpl.findSiblings(i);
 	}
 
 }

@@ -32,8 +32,8 @@ public class ProductService {
 		return daoImpl.findAll();
 	}
 	
-	public List<Product> searchProductByCategory(String string){
-		return daoImpl.searchProductByCategory(string);
+	public List<Product> searchProductByCategory(Integer i){
+		return daoImpl.searchProductByCategory(i);
 	}
 	
 	public void updateProduct( Product product){

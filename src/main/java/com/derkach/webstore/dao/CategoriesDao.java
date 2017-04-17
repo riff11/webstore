@@ -23,5 +23,7 @@ public interface CategoriesDao {
 	void updateCategory(Category category);
 	
 	public List<Category> findRoot();
+	
+	public List<Category> findSiblings(int i);
 
 }
