@@ -39,5 +39,9 @@ public class ProductService {
 	public void updateProduct( Product product){
 		 daoImpl.updateProduct(product);
 	}
+	
+	public List<Product> filter(int min, int max, boolean available){
+		return daoImpl.filter(min, max, available);
+	}
 
 }

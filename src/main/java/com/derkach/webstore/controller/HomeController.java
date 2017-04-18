@@ -14,10 +14,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.derkach.webstore.domain.Category;
 import com.derkach.webstore.service.CategoryService;
+import com.derkach.webstore.service.HomeService;
 import com.derkach.webstore.service.ProductService;
 import com.google.gson.Gson;
 
@@ -35,12 +37,18 @@ public class HomeController {
 
 	@Autowired
 	CategoryService categoryService;
+	@Autowired
+	HomeService homeService;
 
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public ModelAndView home(Locale locale, Model model) {
+	public ModelAndView home(
+			@RequestParam(value = "min", required = false) Integer min,
+			@RequestParam(value = "max", required = false) Integer max,
+			@RequestParam(value = "available", required = false) Boolean available,
+			Locale locale) {
 		logger.info("Welcome home! the client locale is " + locale.toString());
 		// model.addAttribute("ltype", "&lt=0");
 		// Date date = new Date();
@@ -67,6 +75,7 @@ public class HomeController {
 		//
 		// }
 		//
+
 		// try {
 		// Double l = new Double(request.getParameter("l"));
 		// Double m = new Double(request.getParameter("m"));
@@ -161,16 +170,23 @@ public class HomeController {
 		// Root category types
 		mav.addObject("jsonCategoryRoot", jsonCategoryRoot);
 		logger.info("jsonCategoryRoot " + jsonCategoryRoot);
-		// All products
-		model.addAttribute("list", productService.findAll());
-
+		// Add products
+		if(!homeService.filter(mav, min, max, available))
+			{
+				// All products
+				mav.addObject("list", productService.findAll());
+			}
 		return mav;
 
 	}
 
 	@RequestMapping(value = "catalog/{id}", method = RequestMethod.GET)
 	public ModelAndView catalogId(Locale locale,
-			@PathVariable("id") Integer id, Model model) {
+			@PathVariable("id") Integer id,
+			@RequestParam(value = "min", required = false) Integer min,
+			@RequestParam(value = "max", required = false) Integer max,
+			@RequestParam(value = "available", required = false) Boolean available,
+			Model model) {
 		ModelAndView mav = new ModelAndView("home");
 		Gson gson = new Gson();
 		List<Category> categoriesRoot = categoryService.findRoot();
@@ -178,12 +194,14 @@ public class HomeController {
 		logger.info("jsonCategoryRoot " + jsonCategoryRoot);
 		// Root category types
 		mav.addObject("jsonCategoryRoot", jsonCategoryRoot);
-		// All products
-		mav.addObject("list", productService.searchProductByCategory(id));
+		// Add products
+		if(!homeService.filter(mav, min, max, available)){
+				mav.addObject("list", productService.searchProductByCategory(id));
+		}
 		// Child category products
 		List<Category> categoriesSibling = categoryService.findSiblings(id);
 		int i = categoriesSibling.get(0).getParentId();
-		int rootSelected = 0 ;
+		int rootSelected = 0;
 		for (Category category : categoriesRoot) {
 			rootSelected++;
 			if (category.getId().equals(i)) {
@@ -206,6 +224,7 @@ public class HomeController {
 		// selected child category
 		mav.addObject("childSelected", childSelected);
 		logger.info("selected child category " + childSelected);
+
 		return mav;
 	}
 

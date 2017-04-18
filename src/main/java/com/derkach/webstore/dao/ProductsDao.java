@@ -23,8 +23,11 @@ public interface ProductsDao {
 	void deleteProduct( Product product);
 	
 	List<Product> findAll();
+	List<Product> filter(int min, int max, boolean available);
 	
 	void updateProduct( Product product);
+	
+	
 	
 
 }

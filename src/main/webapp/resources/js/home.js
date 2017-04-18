@@ -7,7 +7,7 @@ $(document)
 					selectArrays[0] = JSON.parse(jsonCategoryRoot);
 
 					// alert(productTypesRoot);
-					for ( var i = 0; i < selectArrays[0].length; i++) {
+					for (var i = 0; i < selectArrays[0].length; i++) {
 						$('#type')
 								.append(
 										'<option value="' + (i + 1) + '">'
@@ -17,14 +17,14 @@ $(document)
 
 					if (jsonSiblingsCategory != "") {
 						selectArrays[1] = JSON.parse(jsonSiblingsCategory);
-						$("#child").prop('disable', false);
-						for ( var i = 0; i < selectArrays[1].length; i++) {
+						$("#child").prop('disabled', false);
+						for (var i = 0; i < selectArrays[1].length; i++) {
 							$('#child').append(
 									'<option value="' + (i + 1) + '">'
 											+ selectArrays[1][i].name
 											+ '</option>');
 						}
-						
+
 					}
 
 					$("#type").val(rootSelected);
@@ -34,11 +34,12 @@ $(document)
 									function() {
 
 										$("#child").find("option")
-												.not(":first").remove().end();
-//												.prop('disabled', true);
+												.not(":first").remove().end()
+												.prop('disabled', false);
 										var type_id = $('#type').val();
 										window.typeSelected = type_id;
 										if (type_id == 0) {
+											$("#child").prop("disabled", true);
 											return;
 										}
 										$
@@ -52,12 +53,12 @@ $(document)
 															.stringify(selectArrays[0][type_id - 1].id),
 													/* .stringify(selectArrays[0][type_id].id), */
 													error : function() {
-														alert("При выполнении запроса произошла ошибка :(");
+														alert("пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ :(");
 													},
 
 													success : function(listCat) {
 														selectArrays[1] = listCat;
-														for ( var i = 0; i < listCat.length; i++) {
+														for (var i = 0; i < listCat.length; i++) {
 															$('#child')
 																	.append(
 																			'<option value="'
@@ -68,8 +69,8 @@ $(document)
 														}
 														$('#child').prop(
 																'disabled',
-																false); // Включаем
-														// поле
+																false); // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+														// пїЅпїЅпїЅпїЅ
 
 													}
 
@@ -85,9 +86,9 @@ $(document)
 								}
 								// $.get("catalog/"+selectArrays[1][type_id -
 								// 1].id);
-								window.location.href = pageContext
+								window.location.assign(pageContext
 										+ "/catalog/"
-										+ selectArrays[1][type_id - 1].id;
+										+ selectArrays[1][type_id - 1].id);
 								// $
 
 								// var typeSelected=0;
@@ -133,8 +134,8 @@ $(document)
 								// /* .stringify(selectArrays[0][type_id].id),
 								// */
 								// error : function() {
-								// alert("При выполнении запроса произошла
-								// ошибка :(");
+								// alert("пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+								// пїЅпїЅпїЅпїЅпїЅпїЅ :(");
 								// },
 								//
 								// success : function(listCat) {
@@ -150,8 +151,8 @@ $(document)
 								// }
 								// $('#child').prop(
 								// 'disabled',
-								// false); // Включаем
-								// // поле
+								// false); // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+								// // пїЅпїЅпїЅпїЅ
 								//
 								// }
 								//
@@ -180,8 +181,8 @@ $(document)
 								// data : JSON
 								// .stringify(selectArrays[1][type_id - 1].id),
 								// error : function() {
-								// alert("При выполнении запроса произошла
-								// ошибка :(");
+								// alert("пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+								// пїЅпїЅпїЅпїЅпїЅпїЅ :(");
 								// },
 								//
 								// success : function(
@@ -213,8 +214,8 @@ $(document)
 							});
 
 					// : function() {
-					// progress.startInfinite('Получение категорий
-					// продуктов...');
+					// progress.startInfinite('пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+					// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ...');
 					// $.ajax({
 					// url : '../categories/getProducts.json',
 					// type : 'POST',
@@ -234,5 +235,21 @@ $(document)
 					// }
 					// });
 					// },
+					$("#linkprice_sort").click(
+							function() {
+								var regex = new RegExp(/^(?:\d+?)$/);
+								var min = $("#min").val();
+								var max = $("#max").val();
+								var available = $("#available").is(':checked');
+								var url = window.location.host
+										+ window.location.pathname;
+								if (regex.test(min) && regex.test(max)) {
+									var urlFinal = url + "?min=" + min + "&max=" + max + "&available="+ available;
+									window.location.replace(urlFinal);
+								} else {
+									window.location.replace(url + "?available="
+											+ available);
+								}
+							});
 
 				});

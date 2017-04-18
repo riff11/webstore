@@ -208,7 +208,14 @@ width: 50px;
 
 }
 
+#filter #available{
 
+padding-left: 3px;
+vertical-align:bottom;
+height : 20px;
+width: 50px;
+
+}
 
 
 #page_headerlinks ul {

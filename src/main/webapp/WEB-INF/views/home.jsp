@@ -9,12 +9,12 @@
 <script type="text/javascript"
 	src="<c:url value="/resources/js/jquery-1.9.1.js" />"></script>
 <script>
-	var jsonCategoryRoot = "${jsonCategoryRoot}";
-	var pageContext = "${pageContext.request.contextPath}";
-	var rootSelected = "${rootSelected}";
+	var jsonSiblingsCategory = '${jsonSiblingsCategory}';
 	var childSelected = "${childSelected}";
-	var jsonSiblingsCategory = "${jsonSiblingsCategory}";
-	alert('jsonCategoryRoot:' + '${jsonCategoryRoot}'); 
+	var jsonCategoryRoot = '${jsonCategoryRoot}';
+	 var pageContext = "${pageContext.request.contextPath}"; 
+	var rootSelected = "${rootSelected}";
+	/* alert('jsonCategoryRoot:' + '${jsonCategoryRoot}'); */
 </script>
 <script type="text/javascript"
 	src="<c:url value="/resources/js/home.js" />"></script>
@@ -107,8 +107,10 @@
 
 
 
-				<a href="./?${link}${ltype}" id="linkprice">По Цене: </a> от <input
-					type="text" id="less"> до <input type="text" id="more">
+				<%-- <a href="./?${link}${ltype}" id="linkprice">По Цене: </a> --%>
+				По Цене: от <input type="text" id="min" value="${min}"> до <input
+					type="text" id="max" value="${max}">				
+				На складе: <input type="checkbox" id="available" value="${available}"> 
 				<button id="linkprice_sort">Найти</button>
 			</div>
 

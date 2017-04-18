@@ -143,7 +143,7 @@ public class ProductsDaoImpl implements ProductsDao {
 
 	@Override
 	public List<Product> searchProductByCategory(Integer i) {
-		 String queryinitial = "select * from products where categories_fk ='"
+		String queryinitial = "select * from products where categories_fk ='"
 				+ i + "'";
 
 		System.out.println("query formed with all the argument - "
@@ -166,5 +166,34 @@ public class ProductsDaoImpl implements ProductsDao {
 				});
 
 		return listcontacct;
+	}
+
+
+
+	@Override
+	public List<Product> filter(int min, int max, boolean available) {
+		String queryinitial = "select * from products where price between "
+				+ min + " and " + max + " and " + " available=" + (available?1:0);
+
+		System.out.println("query formed with all the argument - "
+				+ queryinitial);
+
+		RowMapper rm = null;
+		List<Product> userList = jdbcTemplate.query(queryinitial,
+				new RowMapper() {
+					public Object mapRow(ResultSet resultSet, int rowNum)
+							throws SQLException {
+						return new Product(resultSet.getInt("id"), resultSet
+								.getString("name"), resultSet
+								.getString("price"), resultSet
+								.getString("description"), resultSet
+								.getString("image"), resultSet
+								.getString("available"), resultSet
+								.getInt("producer_fk"), resultSet
+								.getInt("categories_fk"));
+					}
+				});
+
+		return userList;
 	}
 }
