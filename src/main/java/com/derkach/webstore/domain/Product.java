@@ -94,9 +94,4 @@ public class Product {
 	public void setCategories_fk(Integer categories_fk) {
 		this.categories_fk = categories_fk;
 	}
-	
-	
-	
-	
-
 }

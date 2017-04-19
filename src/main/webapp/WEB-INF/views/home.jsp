@@ -110,7 +110,7 @@
 				<%-- <a href="./?${link}${ltype}" id="linkprice">По Цене: </a> --%>
 				По Цене: от <input type="text" id="min" value="${min}"> до <input
 					type="text" id="max" value="${max}">				
-				На складе: <input type="checkbox" id="available" value="${available}"> 
+				На складе: <input type="checkbox" id="available" <c:if test="${available}">checked</c:if>> 
 				<button id="linkprice_sort">Найти</button>
 			</div>
 

@@ -4,18 +4,17 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
-import javax.sql.DataSource;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
-import com.derkach.webstore.domain.Category;
 import com.derkach.webstore.domain.Product;
 
 /**
- * dao implementation
+ * dao product implementation
  * 
  * @author alex
  * 
@@ -24,6 +23,9 @@ import com.derkach.webstore.domain.Product;
 public class ProductsDaoImpl implements ProductsDao {
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
+
+	private static final Logger logger = LoggerFactory
+			.getLogger(ProductsDaoImpl.class);
 
 	/**
 	 * Insert user in to the db.
@@ -61,29 +63,12 @@ public class ProductsDaoImpl implements ProductsDao {
 	 */
 	public List<Product> searchProduct(Product product) {
 
-		String queryinitial = "select * from products where NAME ='"
+		String queryInitial = "select * from products where NAME ='"
 				+ product.getName() + "'";
 
-		System.out.println("query formed with all the argument - "
-				+ queryinitial);
+		logger.info("query formed with all the argument - " + queryInitial);
 
-		RowMapper rm = null;
-		List<Product> listcontacct = jdbcTemplate.query(queryinitial,
-				new RowMapper() {
-					public Object mapRow(ResultSet resultSet, int rowNum)
-							throws SQLException {
-						return new Product(resultSet.getInt("id"), resultSet
-								.getString("name"), resultSet
-								.getString("price"), resultSet
-								.getString("description"), resultSet
-								.getString("image"), resultSet
-								.getString("available"), resultSet
-								.getInt("producer_fk"), resultSet
-								.getInt("categories_fk"));
-					}
-				});
-
-		return listcontacct;
+		return jdbcTemplateQuery(queryInitial);
 	}
 
 	/**
@@ -92,28 +77,11 @@ public class ProductsDaoImpl implements ProductsDao {
 	 * @return List<Product>
 	 */
 	public List<Product> findAll() {
-		String queryinitial = "select * from products ";
+		String queryInitial = "select * from products ";
 
-		System.out.println("query formed with all the argument - "
-				+ queryinitial);
+		logger.info("query formed with all the argument - " + queryInitial);
 
-		RowMapper rm = null;
-		List<Product> userList = jdbcTemplate.query(queryinitial,
-				new RowMapper() {
-					public Object mapRow(ResultSet resultSet, int rowNum)
-							throws SQLException {
-						return new Product(resultSet.getInt("id"), resultSet
-								.getString("name"), resultSet
-								.getString("price"), resultSet
-								.getString("description"), resultSet
-								.getString("image"), resultSet
-								.getString("available"), resultSet
-								.getInt("producer_fk"), resultSet
-								.getInt("categories_fk"));
-					}
-				});
-
-		return userList;
+		return jdbcTemplateQuery(queryInitial);
 	}
 
 	/**
@@ -128,8 +96,7 @@ public class ProductsDaoImpl implements ProductsDao {
 				+ "', categories_fk='" + product.getCategories_fk()
 				+ "' where id='" + product.getId() + "'";
 
-		System.out.println("query formed with all the argument - "
-				+ queryinitial);
+		logger.info("query formed with all the argument - " + queryinitial);
 
 		jdbcTemplate.update(queryinitial);
 
@@ -142,44 +109,82 @@ public class ProductsDaoImpl implements ProductsDao {
 	}
 
 	@Override
-	public List<Product> searchProductByCategory(Integer i) {
-		String queryinitial = "select * from products where categories_fk ='"
+	public List<Product> searchProductByCategory(int i) {
+		String queryInitial = "select * from products where categories_fk ='"
 				+ i + "'";
 
-		System.out.println("query formed with all the argument - "
-				+ queryinitial);
+		logger.info("query formed with all the argument - " + queryInitial);
 
-		RowMapper rm = null;
-		List<Product> listcontacct = jdbcTemplate.query(queryinitial,
-				new RowMapper() {
-					public Object mapRow(ResultSet resultSet, int rowNum)
-							throws SQLException {
-						return new Product(resultSet.getInt("id"), resultSet
-								.getString("name"), resultSet
-								.getString("price"), resultSet
-								.getString("description"), resultSet
-								.getString("image"), resultSet
-								.getString("available"), resultSet
-								.getInt("producer_fk"), resultSet
-								.getInt("categories_fk"));
-					}
-				});
-
-		return listcontacct;
+		return jdbcTemplateQuery(queryInitial);
 	}
-
-
 
 	@Override
 	public List<Product> filter(int min, int max, boolean available) {
-		String queryinitial = "select * from products where price between "
-				+ min + " and " + max + " and " + " available=" + (available?1:0);
+		String queryInitial = "select * from products where price between "
+				+ min + " and " + max + " and " + " available="
+				+ (available ? 1 : 0);
 
-		System.out.println("query formed with all the argument - "
-				+ queryinitial);
+		logger.info("query formed with all the argument - " + queryInitial);
 
+		return jdbcTemplateQuery(queryInitial);
+	}
+
+	@Override
+	public List<Product> filter(boolean available) {
+
+		String queryInitial = "select * from products where  available="
+				+ (available ? 1 : 0);
+
+		logger.info("query formed with all the argument - " + queryInitial);
+
+		return jdbcTemplateQuery(queryInitial);
+	}
+
+	@Override
+	public List<Product> filter(int min, int max) {
+		String queryInitial = "select * from products where price between "
+				+ min + " and " + max;
+
+		logger.info("query formed with all the argument - " + queryInitial);
+
+		return jdbcTemplateQuery(queryInitial);
+	}
+
+	@Override
+	public List<Product> filter(int category_fk, int min, int max) {
+		String queryInitial = "select * from products where categories_fk="
+				+ category_fk + " and price between " + min + " and " + max;
+
+		logger.info("query formed with all the argument - " + queryInitial);
+
+		return jdbcTemplateQuery(queryInitial);
+	}
+
+	@Override
+	public List<Product> filter(int category_fk, int min, int max,
+			boolean available) {
+		String queryInitial = "select * from products where categories_fk="
+				+ category_fk + " and price between " + min + " and " + max
+				+ " and " + " available=" + (available ? 1 : 0);
+
+		logger.info("query formed with all the argument - " + queryInitial);
+
+		return jdbcTemplateQuery(queryInitial);
+	}
+
+	@Override
+	public List<Product> filter(int category_fk, boolean available) {
+		String queryInitial = "select * from products where categories_fk="
+				+ category_fk + " and " + " available=" + (available ? 1 : 0);
+
+		logger.info("query formed with all the argument - " + queryInitial);
+
+		return jdbcTemplateQuery(queryInitial);
+	}
+
+	protected List<Product> jdbcTemplateQuery(String queryInitial) {
 		RowMapper rm = null;
-		List<Product> userList = jdbcTemplate.query(queryinitial,
+		List<Product> userList = jdbcTemplate.query(queryInitial,
 				new RowMapper() {
 					public Object mapRow(ResultSet resultSet, int rowNum)
 							throws SQLException {
@@ -196,4 +201,5 @@ public class ProductsDaoImpl implements ProductsDao {
 
 		return userList;
 	}
+
 }

@@ -86,9 +86,10 @@ $(document)
 								}
 								// $.get("catalog/"+selectArrays[1][type_id -
 								// 1].id);
-								window.location.assign(pageContext
-										+ "/catalog/"
-										+ selectArrays[1][type_id - 1].id);
+								var url = pageContext + "/catalog/"
+										+ selectArrays[1][type_id - 1].id;
+								window.location.assign(url);
+								alert(url);
 								// $
 
 								// var typeSelected=0;
@@ -235,21 +236,27 @@ $(document)
 					// }
 					// });
 					// },
-					$("#linkprice_sort").click(
-							function() {
-								var regex = new RegExp(/^(?:\d+?)$/);
-								var min = $("#min").val();
-								var max = $("#max").val();
-								var available = $("#available").is(':checked');
-								var url = window.location.host
-										+ window.location.pathname;
-								if (regex.test(min) && regex.test(max)) {
-									var urlFinal = url + "?min=" + min + "&max=" + max + "&available="+ available;
-									window.location.replace(urlFinal);
-								} else {
-									window.location.replace(url + "?available="
-											+ available);
+					$("#linkprice_sort").click(function() {
+						var regex = new RegExp(/^(?:\d+?)$/);
+						var min = $("#min").val();
+						var max = $("#max").val();
+						var available = $("#available").is(':checked');
+						var url = window.location.pathname;
+						if (regex.test(min) && regex.test(max) || available) {
+							url = url + "?";
+							if (regex.test(min) && regex.test(max)) {
+								url = url + "min=" + min + "&max=" + max;
+								if (available) {
+									url = url + "&available=" + available;
 								}
-							});
+							} else if (available) {
+								url = url + "available=" + available;
+							}
+							window.location.assign(url);
+							alert(url);
+						}else{
+							window.location.assign(url);
+						}
 
+					});
 				});

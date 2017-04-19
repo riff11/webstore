@@ -1,8 +1,5 @@
 package com.derkach.webstore.controller;
 
-import java.text.DateFormat;
-import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 
@@ -19,7 +16,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.derkach.webstore.domain.Category;
 import com.derkach.webstore.service.CategoryService;
-import com.derkach.webstore.service.HomeService;
 import com.derkach.webstore.service.ProductService;
 import com.google.gson.Gson;
 
@@ -37,8 +33,6 @@ public class HomeController {
 
 	@Autowired
 	CategoryService categoryService;
-	@Autowired
-	HomeService homeService;
 
 	/**
 	 * Simply selects the home view to render by returning its name.
@@ -171,17 +165,20 @@ public class HomeController {
 		mav.addObject("jsonCategoryRoot", jsonCategoryRoot);
 		logger.info("jsonCategoryRoot " + jsonCategoryRoot);
 		// Add products
-		if(!homeService.filter(mav, min, max, available))
-			{
-				// All products
-				mav.addObject("list", productService.findAll());
-			}
+		if (max == null && max == null && available == null) {
+			mav.addObject("list", productService.findAll());
+		} else {
+			mav.addObject("list",
+					productService.filter(mav, null, min, max, available));
+		}
+
 		return mav;
 
 	}
 
 	@RequestMapping(value = "catalog/{id}", method = RequestMethod.GET)
-	public ModelAndView catalogId(Locale locale,
+	public ModelAndView catalogId(
+			Locale locale,
 			@PathVariable("id") Integer id,
 			@RequestParam(value = "min", required = false) Integer min,
 			@RequestParam(value = "max", required = false) Integer max,
@@ -194,10 +191,9 @@ public class HomeController {
 		logger.info("jsonCategoryRoot " + jsonCategoryRoot);
 		// Root category types
 		mav.addObject("jsonCategoryRoot", jsonCategoryRoot);
-		// Add products
-		if(!homeService.filter(mav, min, max, available)){
-				mav.addObject("list", productService.searchProductByCategory(id));
-		}
+		// looking for products
+		mav.addObject("list",
+				productService.filter(mav, id, min, max, available));
 		// Child category products
 		List<Category> categoriesSibling = categoryService.findSiblings(id);
 		int i = categoriesSibling.get(0).getParentId();
