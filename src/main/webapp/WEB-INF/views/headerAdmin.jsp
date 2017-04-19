@@ -7,7 +7,7 @@
 <body>
 	<div id="page_header">
 		<div id="page_heading">
-			<a href='${pageContext.request.contextPath}/admin' >
+			<a href='${pageContext.request.contextPath}' >
 				<h1>
 					<span>jStore</span>
 				</h1>
@@ -21,7 +21,7 @@
 				<%-- <%
 					if ( (!request.isUserInRole("ROLE_ADMIN")) && (!request.isUserInRole("ROLE_MANAGER")) && (!request.isUserInRole("ROLE_LOGUSER")) ) {
 				%> --%>
-				<li><a href="admin">Админка</a></li>
+				<li><a href='${pageContext.request.contextPath}'>Выход</a></li>
 				<%-- <%} %>
 				<%
 					if ( (request.isUserInRole("ROLE_ADMIN")) || (request.isUserInRole("ROLE_MANAGER")) || (request.isUserInRole("ROLE_LOGUSER")) ) {
@@ -53,16 +53,16 @@
 		<!-- Start of Page Menu -->
 		<div id="page_menu">
 			<ul>
-				<!-- <li><a href="./">Главная</a></li> -->
+				<li><a href="products">Продукты</a></li>
 				<!-- <li><a href="./Status">Статус заказа</a></li> -->
 				<!-- <li><a href="./shopcartinfo">Корзина</a></li> -->
 				
 				<%-- <%
 					if ( request.isUserInRole("ROLE_ADMIN")) {
 				%> --%>
-				<!-- <li><a href="./editproduct">Товары</a></li> -->
+				<li><a href="categories">Категории</a></li>
 			
-				<!-- <li><a href="./infouser1">Пользователи</a></li> -->
+				<li><a href="producers">Производители</a></li>
 				
 				<!-- <li class="last"><a href="./manager1">Менеджер</a></li> -->
 				<%-- <%
