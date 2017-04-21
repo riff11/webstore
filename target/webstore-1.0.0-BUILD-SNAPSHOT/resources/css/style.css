@@ -300,13 +300,14 @@ width: 50px;
 	
 }
 
-#left_sidebar a {
-	color: #8989b6;
-}
+ #left_sidebar a {
+ /* color: #fff; */
+	/* color: #8989b6; */
+} 
 
-#left_sidebar a:hover {
+/* #left_sidebar a:hover {
 	color: #75759c;
-}
+} */
 
 
 

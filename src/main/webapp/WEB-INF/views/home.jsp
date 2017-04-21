@@ -210,5 +210,6 @@
 			<!-- End of Main Content Area -->
 			<c:import url="/WEB-INF/views/footer.jsp" />
 		</div>
+	</div>
 </body>
 </html>

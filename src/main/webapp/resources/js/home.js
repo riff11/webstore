@@ -89,7 +89,7 @@ $(document)
 								var url = pageContext + "/catalog/"
 										+ selectArrays[1][type_id - 1].id;
 								window.location.assign(url);
-								alert(url);
+//								alert(url);
 								// $
 
 								// var typeSelected=0;
@@ -253,7 +253,7 @@ $(document)
 								url = url + "available=" + available;
 							}
 							window.location.assign(url);
-							alert(url);
+//							alert(url);
 						}else{
 							window.location.assign(url);
 						}
