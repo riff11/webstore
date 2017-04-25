@@ -7,7 +7,7 @@ $(document)
 					selectArrays[0] = JSON.parse(jsonCategoryRoot);
 
 					// alert(productTypesRoot);
-					for (var i = 0; i < selectArrays[0].length; i++) {
+					for ( var i = 0; i < selectArrays[0].length; i++) {
 						$('#type')
 								.append(
 										'<option value="' + (i + 1) + '">'
@@ -17,9 +17,9 @@ $(document)
 
 					if (jsonSiblingsCategory != "") {
 						selectArrays[1] = JSON.parse(jsonSiblingsCategory);
-						$("#child").prop('disabled', false);
-						for (var i = 0; i < selectArrays[1].length; i++) {
-							$('#child').append(
+						$("#child,#child_admin").prop('disabled', false);
+						for ( var i = 0; i < selectArrays[1].length; i++) {
+							$('#child,#child_admin').append(
 									'<option value="' + (i + 1) + '">'
 											+ selectArrays[1][i].name
 											+ '</option>');
@@ -28,18 +28,20 @@ $(document)
 					}
 
 					$("#type").val(rootSelected);
-					$("#child").val(childSelected);
+					$("#child,#child_admin").val(childSelected);
 					$("#type")
 							.change(
 									function() {
 
-										$("#child").find("option")
-												.not(":first").remove().end()
-												.prop('disabled', false);
+										$("#child,#child_admin,#child_edit")
+												.find("option").not(":first")
+												.remove().end().prop(
+														'disabled', false);
 										var type_id = $('#type').val();
 										window.typeSelected = type_id;
 										if (type_id == 0) {
-											$("#child").prop("disabled", true);
+											$("#child,#child_admin,#child_edit")
+													.prop("disabled", true);
 											return;
 										}
 										$
@@ -57,9 +59,11 @@ $(document)
 													},
 
 													success : function(listCat) {
+														jsonSiblingsCategory = listCat;
 														selectArrays[1] = listCat;
-														for (var i = 0; i < listCat.length; i++) {
-															$('#child')
+														for ( var i = 0; i < listCat.length; i++) {
+															$(
+																	'#child,#child_admin,#child_edit')
 																	.append(
 																			'<option value="'
 																					+ (i + 1)
@@ -67,9 +71,11 @@ $(document)
 																					+ listCat[i].name
 																					+ '</option>');
 														}
-														$('#child').prop(
-																'disabled',
-																false); // ��������
+														$(
+																'#child,#child_admin,#child_edit')
+																.prop(
+																		'disabled',
+																		false); // ��������
 														// ����
 
 													}
@@ -89,7 +95,7 @@ $(document)
 								var url = pageContext + "/catalog/"
 										+ selectArrays[1][type_id - 1].id;
 								window.location.assign(url);
-//								alert(url);
+								// alert(url);
 								// $
 
 								// var typeSelected=0;
@@ -135,7 +141,10 @@ $(document)
 								// /* .stringify(selectArrays[0][type_id].id),
 								// */
 								// error : function() {
-								// alert("��� ���������� ������� ���������
+								// alert("���
+								// ����������
+								// �������
+								// ���������
 								// ������ :(");
 								// },
 								//
@@ -182,7 +191,10 @@ $(document)
 								// data : JSON
 								// .stringify(selectArrays[1][type_id - 1].id),
 								// error : function() {
-								// alert("��� ���������� ������� ���������
+								// alert("���
+								// ����������
+								// �������
+								// ���������
 								// ������ :(");
 								// },
 								//
@@ -215,7 +227,8 @@ $(document)
 							});
 
 					// : function() {
-					// progress.startInfinite('��������� ���������
+					// progress.startInfinite('���������
+					// ���������
 					// ���������...');
 					// $.ajax({
 					// url : '../categories/getProducts.json',
@@ -235,7 +248,21 @@ $(document)
 					// progress.stop();
 					// }
 					// });
-					// },
+					// },$("#child").change(
+					$("#child_admin").change(
+							function() {
+
+								var type_id = $('#child_admin').val();
+								childSelected = type_id;
+								if (type_id == 0) {
+									return;
+								}
+								// $.get("catalog/"+selectArrays[1][type_id -
+								// 1].id);
+								var url = pageContext + "/admin/catalog/"
+										+ selectArrays[1][type_id - 1].id;
+								window.location.assign(url);
+							});
 					$("#linkprice_sort").click(function() {
 						var regex = new RegExp(/^(?:\d+?)$/);
 						var min = $("#min").val();
@@ -253,8 +280,8 @@ $(document)
 								url = url + "available=" + available;
 							}
 							window.location.assign(url);
-//							alert(url);
-						}else{
+							// alert(url);
+						} else {
 							window.location.assign(url);
 						}
 

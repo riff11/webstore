@@ -1,4 +1,4 @@
-* { font-family:Arial}
+/* * { font-family:Arial} */
 table, th, td {
 	
 	border:1px solid blue;
@@ -59,4 +59,8 @@ background-color: #8dbdd8;
 .notValid{
 	border-color: #C25B5B;
 	border-style: solid;
+}
+
+form[name=addCategory]{
+	display: inline-table;
 }

@@ -4,12 +4,15 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
+import com.derkach.webstore.controller.AdminController;
 import com.derkach.webstore.domain.Category;
 
 /**
@@ -22,14 +25,18 @@ import com.derkach.webstore.domain.Category;
 public class CategoriesDaoImpl implements CategoriesDao {
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
+	private static final Logger logger = LoggerFactory
+			.getLogger(AdminController.class);
 
 	/**
 	 * Insert category in to the db.
 	 */
-	public void insertCategory(Category category) {
+	public void addCategory(Category category) {
 
 		String query = "insert into categories (`name`, `parent_id`)"
 				+ " VALUES (?,?)";
+		
+		logger.info("query formed with all the argument - " + query);
 
 		jdbcTemplate.update(query,
 				new Object[] { category.getName(), category.getParentId() });
@@ -41,10 +48,10 @@ public class CategoriesDaoImpl implements CategoriesDao {
 	 */
 	public void deleteCategory(Category category) {
 
-		String query = "delete from categories where ID='" + category.getId()
+		String query = "delete from categories where name='" + category.getName()
 				+ "'";
 
-		System.out.println("query formed with all the argument - " + query);
+		logger.info("query formed with all the argument - " + query);
 
 		jdbcTemplate.update(query);
 
@@ -60,8 +67,7 @@ public class CategoriesDaoImpl implements CategoriesDao {
 		String queryinitial = "select * from categories where parent_id ='"
 				+ categoryId + "'";
 
-		System.out.println("query formed with all the argument - "
-				+ queryinitial);
+		logger.info("query formed with all the argument - " + queryinitial);
 
 		RowMapper rm = null;
 		List<Category> listcontacct = jdbcTemplate.query(queryinitial,
@@ -85,8 +91,7 @@ public class CategoriesDaoImpl implements CategoriesDao {
 	public List<Category> findAll() {
 		String queryinitial = "select * from categories ";
 
-		System.out.println("query formed with all the argument - "
-				+ queryinitial);
+		logger.info("query formed with all the argument - " + queryinitial);
 
 		RowMapper rm = null;
 		List<Category> CategoryList = jdbcTemplate.query(queryinitial,
@@ -110,8 +115,7 @@ public class CategoriesDaoImpl implements CategoriesDao {
 	public List<Category> findRoot() {
 		String queryinitial = "select * from categories where parent_id is null";
 
-		System.out.println("query formed with all the argument - "
-				+ queryinitial);
+		logger.info("query formed with all the argument - " + queryinitial);
 
 		RowMapper rm = null;
 		List<Category> CategoryList = jdbcTemplate.query(queryinitial,
@@ -130,7 +134,7 @@ public class CategoriesDaoImpl implements CategoriesDao {
 	/**
 	 * Update category record.
 	 */
-	public void updateCategory(Category category) {
+	public void editCategory(Category category) {
 		String queryinitial = "update categories set name='"
 				+ category.getName() + "', parent_id='"
 				+ category.getParentId() + "' where id='" + category.getId()
@@ -138,14 +142,7 @@ public class CategoriesDaoImpl implements CategoriesDao {
 
 		jdbcTemplate.update(queryinitial);
 
-		System.out.println("query formed with all the argument - "
-				+ queryinitial);
-	}
-
-	@Override
-	public List<Category> editCategory(Category Category) {
-		// TODO Auto-generated method stub
-		return null;
+		logger.info("query formed with all the argument - " + queryinitial);
 	}
 
 	@Override
@@ -161,10 +158,10 @@ public class CategoriesDaoImpl implements CategoriesDao {
 								.getString("name"), resultSet
 								.getInt("parent_id"));
 					}
-				});		
-		System.out.println("query formed with all the argument - "
-				+ queryinitial);
-		
-		return searchCategoriesByParentsId(String.valueOf(listCategory.get(0).getParentId()));
+				});
+		logger.info("query formed with all the argument - " + queryinitial);
+
+		return searchCategoriesByParentsId(String.valueOf(listCategory.get(0)
+				.getParentId()));
 	}
 }

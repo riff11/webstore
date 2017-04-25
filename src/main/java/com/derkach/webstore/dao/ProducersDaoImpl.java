@@ -47,17 +47,17 @@ public class ProducersDaoImpl implements ProducersDao {
 	/**
 	 * Insert producer in to the db.
 	 */
-	public void insertProducer(Producer producer) {
+	public void addProducer(Producer producer) {
 		Connection conn = null;
 		Statement stmt = null;
 
-		String query = "insert into producers (NAME)" + " VALUES ("
-				+ producer.getName() + ")";
+		String query = "insert into producers (NAME)" + " VALUES ('"
+				+ producer.getName() + "')";
 		try {
 			conn = DriverManager.getConnection(env.getProperty("db.url"),
 					env.getProperty("db.user"), env.getProperty("db.password"));
 			stmt = conn.createStatement();
-			stmt.executeQuery(query);
+			stmt.execute(query);
 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -77,14 +77,14 @@ public class ProducersDaoImpl implements ProducersDao {
 		Connection conn = null;
 		Statement stmt = null;
 
-		String query = "delete from producers where ID='" + producer.getId()
-				+ "'";
+		String query = "delete from producers where name='"
+				+ producer.getName() + "'";
 
 		try {
 			conn = DriverManager.getConnection(env.getProperty("db.url"),
 					env.getProperty("db.user"), env.getProperty("db.password"));
 			stmt = conn.createStatement();
-			stmt.executeQuery(query);
+			stmt.execute(query);
 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -180,11 +180,8 @@ public class ProducersDaoImpl implements ProducersDao {
 		return listProducers;
 	}
 
-	/**
-	 * update producer record
-	 */
-	public void updateProducer(Producer producer) {
-
+	@Override
+	public void editProducer(Producer producer) {
 		Connection conn = null;
 		Statement stmt = null;
 		String queryinitial = "update producers set name='"
@@ -205,12 +202,6 @@ public class ProducersDaoImpl implements ProducersDao {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	}
-
-	@Override
-	public List<Producer> editProducer(Producer producer) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 }

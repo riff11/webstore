@@ -18,8 +18,8 @@ public class CategoryService {
 		return categoriesDaoImpl.searchCategoriesByParentsId(categoryId);
 	}
 
-	public List<Category> editCategory(Category category) {
-		return categoriesDaoImpl.editCategory(category);
+	public void editCategory(Category category) {
+		categoriesDaoImpl.editCategory(category);
 	}
 
 	public void deleteCategory(Category category) {
@@ -34,8 +34,8 @@ public class CategoryService {
 		return categoriesDaoImpl.findRoot();
 	}
 
-	public void updateCategory(Category category) {
-		categoriesDaoImpl.updateCategory(category);
+	public void addCategory(Category category) {
+		categoriesDaoImpl.addCategory(category);
 	}
 
 	public List<Category> findSiblings(int i) {

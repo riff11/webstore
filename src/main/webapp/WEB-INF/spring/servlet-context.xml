@@ -42,17 +42,21 @@
 
 	<!-- <bean id="SpringJdbcDao" class="com."> <property name="dataSource" 
 		ref="dataSource1" /> </bean> -->
-	<beans:bean  name="jsonView" 
+	<beans:bean name="jsonView"
 		class="org.springframework.web.servlet.view.json.MappingJackson2JsonView">
 		<beans:property name="contentType" value="application/json" />
 	</beans:bean>
 
+	<beans:bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 
-	<!-- <beans:bean name="xmlView"
-		class="org.springframework.web.servlet.view.xml.MarshallingView">
-		<beans:property name="marshaller" ref="xmlMarshaller" />
-		<beans:property name="contentType" value="application/xml;charset=UTF-8" />
-	</beans:bean> -->
+		<!-- setting maximum upload size -->
+		<beans:property name="maxUploadSize" value="100000" />
+
+	</beans:bean>
+	<!-- <beans:bean name="xmlView" class="org.springframework.web.servlet.view.xml.MarshallingView"> 
+		<beans:property name="marshaller" ref="xmlMarshaller" /> <beans:property 
+		name="contentType" value="application/xml;charset=UTF-8" /> </beans:bean> -->
 
 	<beans:bean depends-on="dataSource1"
 		class="org.springframework.beans.factory.config.MethodInvokingBean">

@@ -30,7 +30,8 @@ public class ProductsDaoImpl implements ProductsDao {
 	/**
 	 * Insert user in to the db.
 	 */
-	public void insertProduct(Product product) {
+	@Override
+	public void addProduct(Product product) {
 
 		String query = "insert into products (`name`, `price`, `producer_fk`, `categories_fk`, `image`, `description`, `available`)"
 				+ " VALUES (?,?,?,?,?,?,?)";
@@ -41,7 +42,6 @@ public class ProductsDaoImpl implements ProductsDao {
 						product.getProducer_fk(), product.getCategories_fk(),
 						product.getImage(), product.getDescription(),
 						product.getAvailable() });
-
 	}
 
 	/**
@@ -84,10 +84,29 @@ public class ProductsDaoImpl implements ProductsDao {
 		return jdbcTemplateQuery(queryInitial);
 	}
 
+//	/**
+//	 * Update user record.
+//	 */
+//	public void updateProduct(Product product) {
+//		String queryinitial = "update products set name='" + product.getName()
+//				+ "', price='" + product.getPrice() + "', description='"
+//				+ product.getDescription() + "',image='" + product.getImage()
+//				+ "', available='" + product.getAvailable()
+//				+ "' , producer_fk='" + product.getProducer_fk()
+//				+ "', categories_fk='" + product.getCategories_fk()
+//				+ "' where id='" + product.getId() + "'";
+//
+//		logger.info("query formed with all the argument - " + queryinitial);
+//
+//		jdbcTemplate.update(queryinitial);
+//
+//	}
+
 	/**
 	 * Update user record.
 	 */
-	public void updateProduct(Product product) {
+	@Override
+	public void editProduct(Product product) {
 		String queryinitial = "update products set name='" + product.getName()
 				+ "', price='" + product.getPrice() + "', description='"
 				+ product.getDescription() + "',image='" + product.getImage()
@@ -99,13 +118,6 @@ public class ProductsDaoImpl implements ProductsDao {
 		logger.info("query formed with all the argument - " + queryinitial);
 
 		jdbcTemplate.update(queryinitial);
-
-	}
-
-	@Override
-	public List<Product> editProduct(Product product) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@Override
@@ -193,13 +205,30 @@ public class ProductsDaoImpl implements ProductsDao {
 								.getString("price"), resultSet
 								.getString("description"), resultSet
 								.getString("image"), resultSet
-								.getString("available"), resultSet
+								.getBoolean("available"), resultSet
 								.getInt("producer_fk"), resultSet
 								.getInt("categories_fk"));
 					}
 				});
 
 		return userList;
+	}
+
+	@Override
+	public void deleteProduct(int id) {
+		String query = "delete from products where id='" + id + "'";
+
+		jdbcTemplate.update(query);
+
+	}
+
+	@Override
+	public List<Product> searchProduct(int id) {
+		String queryInitial = "select * from products where id ='" + id + "'";
+
+		logger.info("query formed with all the argument - " + queryInitial);
+
+		return jdbcTemplateQuery(queryInitial);
 	}
 
 }

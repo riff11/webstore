@@ -21,9 +21,9 @@ import com.google.gson.Gson;
 
 @Controller
 @RequestMapping( value = "/admin")
-public class EnterController {
+public class AdminController {
 	private static final Logger logger = LoggerFactory
-			.getLogger(EnterController.class);
+			.getLogger(AdminController.class);
 
 	@Autowired
 	ProductService productService;
