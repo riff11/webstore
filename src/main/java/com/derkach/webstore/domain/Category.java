@@ -10,6 +10,10 @@ public class Category {
 	
 	
 	
+	public Category() {
+		super();
+	}
+	
 	public Category(Integer id, String name, Integer parentId) {
 		super();
 		this.id = id;
@@ -75,7 +79,6 @@ public class Category {
 			return false;
 		return true;
 	}
-	
 	
 	
 }

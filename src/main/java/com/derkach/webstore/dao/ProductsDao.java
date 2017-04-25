@@ -8,17 +8,21 @@ import com.derkach.webstore.domain.Product;
  * Dao interface product.
  * 
  * @author alex
- *
+ * 
  */
 public interface ProductsDao {
 
 	List<Product> searchProduct(Product product);
 
-	List<Product> editProduct(Product product);
+	List<Product> searchProduct(int id);
 
-	void deleteProduct(Product product);
+	void editProduct(Product product);
 
-	void updateProduct(Product product);
+	void deleteProduct(int integer);
+
+	void addProduct(Product product);
+
+	// void updateProduct(Product product);
 
 	List<Product> findAll();
 

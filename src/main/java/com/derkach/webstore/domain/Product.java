@@ -8,7 +8,7 @@ public class Product {
 	private String price;
 	private String description;
 	private String image;
-	private String available;
+	private Boolean available;
 	private Integer producer_fk;
 	private Integer categories_fk;
 	
@@ -25,7 +25,7 @@ public class Product {
 	 * @param categories_fk
 	 */
 	public Product(Integer id, String name, String price, String description,
-			String image, String available, Integer producer_fk,
+			String image, Boolean available, Integer producer_fk,
 			Integer categories_fk) {
 		super();
 		this.id = id;
@@ -38,6 +38,12 @@ public class Product {
 		this.categories_fk = categories_fk;
 	}
 	
+	
+	public Product() {
+		super();
+	}
+
+
 	@Override
 	public String toString() {
 		return "Product [id=" + id + ", name=" + name + ", price=" + price
@@ -70,12 +76,15 @@ public class Product {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public String getAvailable() {
+
+	public Boolean getAvailable() {
 		return available;
 	}
-	public void setAvailable(String available) {
+
+	public void setAvailable(Boolean available) {
 		this.available = available;
 	}
+
 	public String getImage() {
 		return image;
 	}

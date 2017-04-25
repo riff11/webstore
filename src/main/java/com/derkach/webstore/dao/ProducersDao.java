@@ -15,12 +15,12 @@ public interface ProducersDao {
 
 	List<Producer> searchProducer(Producer producer);
 
-	List<Producer> editProducer(Producer producer);
+	void editProducer(Producer producer);
 	
 	void deleteProducer(Producer producer);
 	
 	List<Producer> findAll();
 	
-	void updateProducer(Producer producer);
+	void addProducer(Producer producer);
 
 }

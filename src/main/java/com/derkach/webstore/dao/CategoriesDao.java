@@ -14,13 +14,13 @@ public interface CategoriesDao {
 
 	List<Category> searchCategoriesByParentsId(String categoryId);
 
-	List<Category> editCategory(Category category);
+	void editCategory(Category category);
 	
 	void deleteCategory(Category category);
 	
 	List<Category> findAll();
 	
-	void updateCategory(Category category);
+	void addCategory(Category category);
 	
 	public List<Category> findRoot();
 	
