@@ -54,6 +54,20 @@
 		<beans:property name="maxUploadSize" value="100000" />
 
 	</beans:bean>
+	
+	
+<bean id="jaxb2Marshaller" class="org.springframework.oxm.jaxb.Jaxb2Marshaller">
+	<property name="packagesToScan">
+		<list>
+			<!-- List of java packages that contain the jaxb generated classes -->
+			<value>com.intertech.consulting</value>
+			<value>org.w3._2000._09.xmldsig_</value>
+			<value>org.w3._2003._05.soap_envelope</value>
+			<value>org.xmlsoap.schemas.ws</value>
+		</list>
+	</property>
+</bean>
+	
 	<!-- <beans:bean name="xmlView" class="org.springframework.web.servlet.view.xml.MarshallingView"> 
 		<beans:property name="marshaller" ref="xmlMarshaller" /> <beans:property 
 		name="contentType" value="application/xml;charset=UTF-8" /> </beans:bean> -->

@@ -1,6 +1,14 @@
 package com.derkach.webstore.domain;
 
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement(name="producer")
+// @XmlAccessorType(XmlAccessType)
+
 public class Producer {
+
 	private Integer id;
 	private String name;
 
@@ -14,6 +22,7 @@ public class Producer {
 		return id;
 	}
 
+	@XmlElement(name="id")
 	public void setId(Integer id) {
 		this.id = id;
 	}
@@ -22,6 +31,7 @@ public class Producer {
 		return name;
 	}
 
+	@XmlElement(name="name")
 	public void setName(String name) {
 		this.name = name;
 	}
