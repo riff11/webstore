@@ -45,18 +45,6 @@ public class ProductsDaoImpl implements ProductsDao {
 	}
 
 	/**
-	 * Delete user from db.
-	 */
-	public void deleteProduct(Product product) {
-
-		String query = "delete from products where ID='" + product.getId()
-				+ "'";
-
-		jdbcTemplate.update(query);
-
-	}
-
-	/**
 	 * Search user in db.
 	 * 
 	 * @return List<User>
@@ -76,31 +64,57 @@ public class ProductsDaoImpl implements ProductsDao {
 	 * 
 	 * @return List<Product>
 	 */
-	public List<Product> findAll() {
-		String queryInitial = "select * from products ";
+	public List findAll() {
+		String queryInitial = "select  products.categories_fk, products.id, products.name, products.price, products.image, products.description, products.available, categories.name as category , producers.name as producer from products inner join categories on  products.categories_fk=categories.id    inner join  producers on products.producer_fk = producers.id";
 
+		// "select  products.*, categories.name as category , producers.name as producer from products inner join categories on categories.id = products.categories_fk   inner join  producers on products.producer_fk = producers.id";
+		/*
+		 * "select products.*, categories.name, producers.name " +
+		 * " from products inner join categories on categories.id = products.categories_fk "
+		 * + " inner join  producers on products.producer_fk = producers.id";
+		 */
 		logger.info("query formed with all the argument - " + queryInitial);
 
-		return jdbcTemplateQuery(queryInitial);
+		return jdbcTemplateQueryAll(queryInitial);
 	}
 
-//	/**
-//	 * Update user record.
-//	 */
-//	public void updateProduct(Product product) {
-//		String queryinitial = "update products set name='" + product.getName()
-//				+ "', price='" + product.getPrice() + "', description='"
-//				+ product.getDescription() + "',image='" + product.getImage()
-//				+ "', available='" + product.getAvailable()
-//				+ "' , producer_fk='" + product.getProducer_fk()
-//				+ "', categories_fk='" + product.getCategories_fk()
-//				+ "' where id='" + product.getId() + "'";
-//
-//		logger.info("query formed with all the argument - " + queryinitial);
-//
-//		jdbcTemplate.update(queryinitial);
-//
-//	}
+	protected List<Product> jdbcTemplateQueryAll(String queryInitial) {
+		RowMapper rm = null;
+		List<Product> userList = jdbcTemplate.query(queryInitial,
+				new RowMapper() {
+					public Object mapRow(ResultSet resultSet, int rowNum)
+							throws SQLException {
+						return new Product(resultSet.getInt("id"), resultSet
+								.getString("name"), resultSet
+								.getString("price"), resultSet
+								.getString("description"), resultSet
+								.getString("image"), resultSet
+								.getBoolean("available"), resultSet
+								.getString("producer"), resultSet
+								.getString("category"));
+					}
+				});
+
+		return userList;
+	}
+
+	// /**
+	// * Update user record.
+	// */
+	// public void updateProduct(Product product) {
+	// String queryinitial = "update products set name='" + product.getName()
+	// + "', price='" + product.getPrice() + "', description='"
+	// + product.getDescription() + "',image='" + product.getImage()
+	// + "', available='" + product.getAvailable()
+	// + "' , producer_fk='" + product.getProducer_fk()
+	// + "', categories_fk='" + product.getCategories_fk()
+	// + "' where id='" + product.getId() + "'";
+	//
+	// logger.info("query formed with all the argument - " + queryinitial);
+	//
+	// jdbcTemplate.update(queryinitial);
+	//
+	// }
 
 	/**
 	 * Update user record.
@@ -229,6 +243,13 @@ public class ProductsDaoImpl implements ProductsDao {
 		logger.info("query formed with all the argument - " + queryInitial);
 
 		return jdbcTemplateQuery(queryInitial);
+	}
+
+	@Override
+	public void deleteProduct(String name) {
+		String query = "delete from products where name='" + name + "'";
+		jdbcTemplate.update(query);
+
 	}
 
 }

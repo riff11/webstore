@@ -65,7 +65,10 @@
 
 
 		</div>
-		<div id="main_content">
+		<!-- Shop Window -->
+		<!-- Start of Page Header -->
+		<c:import url="/WEB-INF/views/show_window.jsp" />
+<%-- 		<div id="main_content">
 			<div id="filter">
 
 				По Цене:
@@ -99,7 +102,7 @@
 				<h1>Товаров не найдено</h1>
 			</c:if>
 
-		</div>
+		</div> --%>
 
 		<!-- End of Main Content Area -->
 		<div class="clearthis">&nbsp;</div>

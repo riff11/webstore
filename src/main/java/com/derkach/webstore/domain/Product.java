@@ -8,6 +8,8 @@ public class Product {
 	private String price;
 	private String description;
 	private String image;
+	private String producer;
+	private String category;
 	private Boolean available;
 	private Integer producer_fk;
 	private Integer categories_fk;
@@ -38,6 +40,20 @@ public class Product {
 		this.categories_fk = categories_fk;
 	}
 	
+	public Product(Integer id, String name, String price, String description,
+			String image, Boolean available, String producer,
+			String category) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.price = price;
+		this.description = description;
+		this.image = image;
+		this.available = available;
+		this.producer = producer;
+		this.category= category;
+	}
+	
 	
 	public Product() {
 		super();
@@ -50,6 +66,24 @@ public class Product {
 				+ ", description=" + description + ", image=" + image
 				+ ", available=" + available + ", producer_fk=" + producer_fk
 				+ ", categories_fk=" + categories_fk + "]";
+	}
+	
+	
+
+	public String getProducer() {
+		return producer;
+	}
+
+	public void setProducer(String producer) {
+		this.producer = producer;
+	}
+
+	public String getCategory() {
+		return category;
+	}
+
+	public void setCategory(String category) {
+		this.category = category;
 	}
 
 	public Integer getId() {

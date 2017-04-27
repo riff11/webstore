@@ -48,11 +48,16 @@ public class ProductService {
 		daoImpl.editProduct(product);
 	}
 
-	public void deleteProduct(Product product) {
-		daoImpl.deleteProduct(product);
+	/**
+	 * Delete product by name.
+	 * 
+	 * @param name
+	 */
+	public void deleteProduct(String name) {
+		daoImpl.deleteProduct(name);
 	}
 
-	public List<Product> findAll() {
+	public List findAll() {
 		return daoImpl.findAll();
 	}
 

@@ -11,7 +11,7 @@
 <script type="text/javascript"
 	src="<c:url value="/resources/js/jquery-1.9.1.js" />"></script>
 <script type="text/javascript"
-	src="<c:url value="resources/scripts/jquery.tablesorter.js" />"></script>
+	src="<c:url value="/resources/scripts/jquery.tablesorter.js" />"></script>
 <script>
 	var jsonSiblingsCategory = '${jsonSiblingsCategory}';
 	var childSelected = "${childSelected}";
@@ -21,7 +21,10 @@
 	/* alert('jsonCategoryRoot:' + '${jsonCategoryRoot}'); */
 </script>
 <script type="text/javascript"
-	src="<c:url value="/resources/js/store.js"/>"></script>
+	src="<c:url value="/resources/js/productTable.js" />"></script>
+
+<script type="text/javascript"
+	src="<c:url value="/resources/js/deleteproduct.js" />"></script>
 
 <title>Shop</title>
 </head>
@@ -45,54 +48,52 @@
 				</fieldset>
 			</form>
 
-			<form action="deleteFew" method="post">
-				<fieldset>
-					<legend>Удалить несколько продуктов</legend>
-					<br> <input type="hidden" id="lastId" value="${lastId}" />
+			<!-- <form action="deleteFew" method="post"> -->
+			<fieldset>
+				<legend>Удалить несколько продуктов</legend>
+				<br> <input type="hidden" id="lastId" value="${lastId}" />
 
-					<c:if test="${not empty list}">
+				<c:if test="${not empty list}">
 
-						<table id="myTable" class="tablesorter">
-							<thead>
-								<tr>
-									<th>Id</th>
-									<th>Название</th>
-									<th>Цена</th>
-									<th>Производитель</th>
-									<th>Категория</th>
-									<th>Картинка</th>
-									<th>Описание</th>
-									<th>На складе</th>
-									<th>Удалить</th>
+					<table id="myTable" class="tablesorter">
+						<thead>
+							<tr>
+								<th>Id</th>
+								<th>Название</th>
+								<th>Цена</th>
+								<th>Производитель</th>
+								<th>Категория</th>
+								<th>Картинка</th>
+								<th>Описание</th>
+								<th>На складе</th>
+								<th>Удалить</th>
+							</tr>
+						</thead>
+						<tbody id="tbody">
+							<c:forEach var="prod" items="${list}">
+								<tr id="tr${prod.id }">
+									<td name="idColumn" id="${prod.id }">${prod.id }</td>
+									<td id="name${prod.id }">${prod.name}</td>
+									<td id="price${prod.id }">${prod.price}</td>
+									<td id="producer${prod.id }">${prod.producer}</td>
+									<td id="category${prod.id }">${prod.category}</td>
+									<td id="picture${prod.id }">${prod.image}</td>
+									<td id="descr${prod.id }">${prod.description}</td>
+									<td id="available${prod.id }">${prod.available}</td>
+									<td>
+										<center>
+											<input type="checkbox" value=${prod.id } id=${prod.id }>
+										</center>
+									</td>
 								</tr>
-							</thead>
-							<tbody id="tbody">
-								<c:forEach var="prod" items="${list}">
-									<tr id="tr${prod.id }">
-										<td name="idColumn" id="${prod.id }">${prod.id }</td>
-										<td id="name${prod.id }">${prod.name}</td>
-										<td id="price${prod.id }">${prod.price}</td>
-										<td id="producer${prod.id }">${producer_fk}</td>
-										<td id="category${prod.id }">${prod.categories_fk}</td>
-										<td id="picture${prod.id }">${prod.image}</td>
-										<td id="descr${prod.id }">${prod.description}</td>
-										<td id="available${prod.id }">${prod.available}</td>
-										<td>
-											<center>
-												<input type="checkbox" name=${prod.id } id=${prod.id }>
-											</center>
-										</td>
-									</tr>
-								</c:forEach>
-							</tbody>
-						</table>
-					</c:if>
-					<br> <input type="submit" value="Удалить несколько"> <br>
+							</c:forEach>
+						</tbody>
+					</table>
+				</c:if>
+				<br> <input name="deleteFewProducts" type="submit"
+					value="Удалить несколько"> <br>
 
-				</fieldset>
-
-			</form>
-			<!-- End of Main Content Area -->
+			</fieldset>
 
 		</div>
 		<div class="clearthis">&nbsp;</div>

@@ -2,8 +2,10 @@ $(document).ready(
 
 function() {
 	$("#addCategory").click(function() {
-		var arr = jsonSiblingsCategory;
-		id = arr[$("#child_edit").val() - 1].id;
+		var arr = JSON.parse(jsonCategoryRoot);
+		id = null;
+		if ($("#typeAdd").val() != 0)
+			id = arr[$("#typeAdd").val() - 1].id;
 		$.ajax({
 			url : 'addCategory.json',
 			type : 'POST',
@@ -13,17 +15,17 @@ function() {
 				name : $("input[name='AddCategory']").val(),
 				parentId : id
 			}),
-			/*
-			 * "&name=" + $("input[name='AddCategory']").val() + "&parent_id" +
-			 * id,
-			 */
-			success : function(data) {
-				alert("OK");
+			error : function() {
+//				alert("bad");
+				location.reload();
+			},
+			success : function() {
+//				alert("OK");
+				location.reload();
 			}
 		});
 	});
 	$("#delCategory").click(function() {
-		// alert("delProducer");
 		$.ajax({
 			url : 'deleteCategory.json',
 			type : 'POST',
@@ -32,18 +34,15 @@ function() {
 			data : JSON.stringify({
 				name : $("input[name='DeleteCategory']").val()
 			}),
-			error : function(xhr, ajaxOptions, thrownError) {
-				// alert(xhr.status);
-				// alert(thrownError);
+			error : function() {
+//				alert("bad");
+				location.reload();
 			},
-//			data : "&categoryName=" + $("input[name='DeleteCategory']").val(),
 			success : function() {
-				alert("OK");
+//				alert("OK");
+				location.reload();
 			}
 		});
 	});
-	// $("#child_edit").change(function() {
-	//
-	// });
 
 });

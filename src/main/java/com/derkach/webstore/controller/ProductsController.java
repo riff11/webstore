@@ -1,5 +1,6 @@
 package com.derkach.webstore.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -42,8 +43,8 @@ public class ProductsController {
 	CategoryService categoryService;
 
 	@RequestMapping(value = "admin/form", method = RequestMethod.POST)
-	public String processForm(@RequestParam MultipartFile file, Model model,HttpServletRequest request,
-            HttpSession session) {
+	public String processForm(@RequestParam MultipartFile file, Model model,
+			HttpServletRequest request, HttpSession session) {
 		if (file == null)
 			System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! No File");
 		else {
@@ -53,23 +54,34 @@ public class ProductsController {
 				Integer.parseInt(request.getParameter("idpicture")));
 		return "redirect:addProduct";
 	}
-	
-	@RequestMapping(value = "admin/deleteProduct", method = {RequestMethod.GET})
-	public String listDel(Model model) {
-		logger.info("delete product");
-//		model.addAttribute("list", productTypeService.findAll());
-		model.addAttribute("list", productService.findAll());
+
+	@RequestMapping(value = "admin/deleteProduct", method = { RequestMethod.GET })
+	public String delProd(Model model) {
+		logger.info("delete product view");
+		List list = productService.findAll();
+		System.out.println(list);
+		model.addAttribute("list", list);
 		return "product/deleteProduct";
 	}
 
-	@RequestMapping(value = "admin/editProducts", method = { RequestMethod.GET,
-			RequestMethod.POST })
-	public ModelAndView list(
+	@RequestMapping(value = "admin/deleteProduct", method = { RequestMethod.POST })
+	public String delProd(@RequestParam("name") String name) {
+		logger.info("delete product by name");
+		// model.addAttribute("list", productTypeService.findAll());
+		// model.addAttribute("list", productService.findAll());
+		productService.deleteProduct(name);
+		return "redirect:/admin/deleteProduct";
+	}
+
+	@RequestMapping(value = "admin/editProducts", method = RequestMethod.GET)
+	public ModelAndView editProGet(
 			@PathVariable(value = "product", required = false) Product product,
 			Model model) {
-		logger.info("!!!!!!!!!!!!!!admin/editProducts");
+		// logger.info("!!!!!!!!!!!!!!admin/editProducts");
 		ModelAndView mav = new ModelAndView("product/edit_products");
-		 model.addAttribute("list", productService.findAll());
+		List list = productService.findAll();
+		System.out.println(list);
+		model.addAttribute("list", list);
 		// Root category types
 		Gson gson = new Gson();
 		List<Category> categoriesRoot = categoryService.findRoot();
@@ -77,23 +89,49 @@ public class ProductsController {
 		mav.addObject("jsonCategoryRoot", jsonCategoryRoot);
 		logger.info("jsonCategoryRoot " + jsonCategoryRoot);
 
-		// Child category products
-		// List<Category> categoriesSibling = categoryService.findSiblings(id);
-		// String jsonSibling = gson.toJson(categoriesSibling);
-		// mav.addObject("jsonSiblingsCategory", jsonSibling);
-		// logger.info("siblingsCategory " + jsonSibling);
+		// Producers
+		List<Producer> producersList = producerService.findAll();
+		String jsonProducersList = gson.toJson(producersList);
+		mav.addObject("jsonProducersList", jsonProducersList);
+		logger.info("jsonProducersList " + jsonProducersList);
+
 		return mav;
 	}
 
-	@RequestMapping(value = "admin/deleteFew", method = RequestMethod.POST)
-	public String DeleteFew(
-			@RequestParam(value = "indexList", required = false) List indexList,
+	@RequestMapping(value = "admin/editProducts", method = RequestMethod.POST)
+	public ModelAndView editPro(@RequestBody Product product, Model model) {
+		logger.info("!!!!!!!!!!!!!!admin/editProducts");
+		productService.editProduct(product);
+		ModelAndView mav = new ModelAndView("product/edit_products");
+		List list = productService.findAll();
+		System.out.println(list);
+		model.addAttribute("list", list);
+		// Root category types
+		Gson gson = new Gson();
+		List<Category> categoriesRoot = categoryService.findRoot();
+		String jsonCategoryRoot = gson.toJson(categoriesRoot);
+		mav.addObject("jsonCategoryRoot", jsonCategoryRoot);
+		logger.info("jsonCategoryRoot " + jsonCategoryRoot);
+
+		// Producers
+		List<Producer> producersList = producerService.findAll();
+		String jsonProducersList = gson.toJson(producersList);
+		mav.addObject("jsonProducersList", jsonProducersList);
+		logger.info("jsonProducersList " + jsonProducersList);
+
+		return mav;
+	}
+
+	@RequestMapping(value = "admin/deleteFew.json", method = RequestMethod.POST)
+	public String DeleteFew(@RequestBody ArrayList<Integer> indexList,
 			Model model, HttpServletRequest request) {
 
-		logger.info("!!!!!!!!!!!!!!!!!!deleteFew");
-		for (Object object : indexList) {
-			if (object instanceof Integer) {
-				productService.deleteProduct((Integer) object);
+		logger.info(" delete few products");
+		if (indexList != null) {
+			for (Integer id : indexList) {
+				if (id != null) {
+					productService.deleteProduct(id);
+				}
 			}
 		}
 		/*
@@ -109,7 +147,7 @@ public class ProductsController {
 
 		// productService.deleteProductByName(request.getParameter("name"));
 
-		return "redirect:/deleteProduct";
+		return "redirect:/admin/deleteProduct";
 	}
 
 	// @RequestMapping(value = "admin/deleteProduct", method =

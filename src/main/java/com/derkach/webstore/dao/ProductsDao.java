@@ -20,11 +20,13 @@ public interface ProductsDao {
 
 	void deleteProduct(int integer);
 
+	void deleteProduct(String name);
+
 	void addProduct(Product product);
 
 	// void updateProduct(Product product);
 
-	List<Product> findAll();
+	List findAll();
 
 	List<Product> searchProductByCategory(int i);
 

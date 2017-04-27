@@ -48,22 +48,22 @@
 						<div class="row">
 							<label for="type">Каталог товаров:</label>
 							<!-- Создаем поле со списком -->
-							<select id="type">
+							<select id="typeAdd">
 								<option value="0">Выберите из списка</option>
 								<%-- <c:forEach var="type" items="${productTypesRoot}" varStatus="loop">
 								<option value="${loop.getIndex()+1}">${type.getName()}</option>
 							</c:forEach> --%>
 							</select>
 						</div>
-						<div class="row">
+						<%-- <div class="row">
 							<!-- Создаем поле со списком -->
 							<select id="child_edit" disabled>
 								<option value="0">Выберите из списка</option>
-								<%-- <c:forEach var="type" items="${productTypes}" varStatus="loop">
+								<c:forEach var="type" items="${productTypes}" varStatus="loop">
 								<option value="${loop.getIndex()+1}">${type.getName()}</option>
-							</c:forEach> --%>
+							</c:forEach>
 							</select>
-						</div>
+						</div> --%>
 					</form>
 					 <input
 						type="submit" value="AddCategory" id="addCategory"> <br>

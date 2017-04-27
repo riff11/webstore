@@ -35,8 +35,7 @@
 			<div id="categories">
 				<div id="categories_header">
 					<h2>
-						<a href='${pageContext.request.contextPath}'>Список
-							товаров</a>
+						<a href='${pageContext.request.contextPath}'>Список товаров</a>
 					</h2>
 				</div>
 				<!-- <ul> -->
@@ -86,10 +85,13 @@
 					value="/${currentIndex + 1}?${link}${ltype}${price}" />
 
 			</div> --%>
-		<div id="main_content">
+		<!-- Shop Window -->
+		<!-- Start of Page Header -->
+		<c:import url="/WEB-INF/views/show_window.jsp" />
+		<%-- 		<div id="main_content">
 			<div id="filter">
 
-				<a href="./?${link}${ltype}" id="linkprice">По Цене: </a> По Цене:
+				 По Цене:
 				от <input type="text" id="min" value="${min}"> до <input
 					type="text" id="max" value="${max}"> На складе: <input
 					type="checkbox" id="available"
@@ -109,6 +111,9 @@
 					<div class="price">
 						<h2>${prod.price}</h2>
 					</div>
+					<div>
+						<h4 id="">${prod.description}</h4>
+					</div>
 
 					<div id="new_item_link"></div>
 
@@ -120,7 +125,7 @@
 				<h1>Товаров не найдено</h1>
 			</c:if>
 
-		</div>
+		</div> --%>
 
 
 		<!-- End of Main Content Area -->

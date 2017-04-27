@@ -3,38 +3,35 @@ $(document).ready(
 function() {
 
 	$("#addProducer").click(function() {
-//		alert("addProduce");
 		$.ajax({
 			url : 'addProducers',
 			type : 'POST',
 
 			data : "&producerName=" + $("input[name='AddProducer']").val(),
-			error : function(xhr, ajaxOptions, thrownError) {
-//				alert(xhr.status);
-//				alert(thrownError);
+			error : function() {
+				alert("bad");
+				location.reload();
 			},
 			success : function() {
 				alert("OK");
+				location.reload();
 			}
 		});
 	});
 	$("#delProducer").click(function() {
-//		alert("delProducer");
 		$.ajax({
 			url : 'deleteProducers',
 			type : 'POST',
-			error : function(xhr, ajaxOptions, thrownError) {
-//				alert(xhr.status);
-//				alert(thrownError);
-			},
 			data : "&producerName=" + $("input[name='DeleteProducer']").val(),
+			error : function() {
+				alert("bad");
+				location.reload();
+			},
 			success : function() {
 				alert("OK");
+				location.reload();
 			}
 		});
 	});
-	// $("#child_edit").change(function() {
-	//
-	// });
 
 });

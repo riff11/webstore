@@ -510,7 +510,8 @@ input {
 	border-style: solid;
 	border-color: #9e9ec3;
 	border-width: 1px;
-	height: 365px;
+	/* height: 365px; */
+	height: 100px;
 }
 
 #new_item1 {
@@ -532,7 +533,7 @@ input {
 	margin: 10px 15px 2px;
 	overflow: hidden;
 	max-width: 255px;
-	height: 65px;
+	height: 35px;
 }
 
 #new_item_header h1 {

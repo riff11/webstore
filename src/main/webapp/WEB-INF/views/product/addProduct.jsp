@@ -79,7 +79,7 @@
 		</fieldset>
 
 		<br>
-		<fieldset>
+		<%-- <fieldset>
 			<h1>Загрузить картинку</h1>
 			<br>
 			<c:if test="${not empty originalFileName}">
@@ -99,7 +99,7 @@
 					</div>
 				</form>
 			</div>
-		</fieldset>
+		</fieldset> --%>
 		<br>
 
 	</div>
