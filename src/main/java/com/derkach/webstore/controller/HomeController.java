@@ -1,5 +1,6 @@
 package com.derkach.webstore.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.derkach.webstore.domain.Categories;
 import com.derkach.webstore.domain.Category;
 import com.derkach.webstore.service.CategoryService;
 import com.derkach.webstore.service.ProductService;
@@ -47,7 +49,10 @@ public class HomeController {
 		ModelAndView mav = new ModelAndView("home");
 		Gson gson = new Gson();
 		List<Category> categoriesRoot = categoryService.findRoot();
-		String jsonCategoryRoot = gson.toJson(categoriesRoot);
+		
+		Categories categories = new Categories();
+		categories.setCategories((ArrayList<Category>) categoriesRoot);
+		String jsonCategoryRoot = gson.toJson(categories);
 		// Root category types
 		mav.addObject("jsonCategoryRoot", jsonCategoryRoot);
 		logger.info("jsonCategoryRoot " + jsonCategoryRoot);
@@ -74,7 +79,9 @@ public class HomeController {
 		ModelAndView mav = new ModelAndView("home");
 		Gson gson = new Gson();
 		List<Category> categoriesRoot = categoryService.findRoot();
-		String jsonCategoryRoot = gson.toJson(categoriesRoot);
+		Categories categories = new Categories();
+		categories.setCategories((ArrayList<Category>) categoriesRoot);
+		String jsonCategoryRoot = gson.toJson(categories);
 		logger.info("jsonCategoryRoot " + jsonCategoryRoot);
 		// Root category types
 		mav.addObject("jsonCategoryRoot", jsonCategoryRoot);
@@ -83,6 +90,8 @@ public class HomeController {
 				productService.filter(mav, id, min, max, available));
 		// Child category products
 		List<Category> categoriesSibling = categoryService.findSiblings(id);
+		categories = new Categories();
+		categories.setCategories((ArrayList<Category>) categoriesSibling);
 		int i = categoriesSibling.get(0).getParentId();
 		int rootSelected = 0;
 		for (Category category : categoriesRoot) {
@@ -98,7 +107,7 @@ public class HomeController {
 				break;
 			}
 		}
-		String jsonSibling = gson.toJson(categoriesSibling);
+		String jsonSibling = gson.toJson(categories);
 		mav.addObject("jsonSiblingsCategory", jsonSibling);
 		logger.info("siblingsCategory " + jsonSibling);
 		// selected root category

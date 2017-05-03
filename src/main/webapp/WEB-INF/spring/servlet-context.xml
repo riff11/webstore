@@ -25,13 +25,6 @@
 		<jd:script location="classpath:test-data.sql" />
 	</jd:embedded-database>
 
-	<!-- Resolves views selected for rendering by @Controllers to .jsp resources 
-		in the /WEB-INF/views directory -->
-	<beans:bean
-		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-		<beans:property name="prefix" value="/WEB-INF/views/" />
-		<beans:property name="suffix" value=".jsp" />
-	</beans:bean>
 
 	<context:component-scan base-package="com.derkach.webstore" />
 
@@ -40,12 +33,51 @@
 		<beans:property name="dataSource" ref="dataSource1"></beans:property>
 	</beans:bean>
 
-	<!-- <bean id="SpringJdbcDao" class="com."> <property name="dataSource" 
-		ref="dataSource1" /> </bean> -->
-	<beans:bean name="jsonView"
-		class="org.springframework.web.servlet.view.json.MappingJackson2JsonView">
-		<beans:property name="contentType" value="application/json" />
+	<beans:bean
+		class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
+		<beans:property name="viewResolvers">
+			<beans:list>
+
+				<beans:bean
+					class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+					<beans:property name="prefix" value="/WEB-INF/views/" />
+					<beans:property name="suffix" value=".jsp" />
+				</beans:bean>
+
+			</beans:list>
+		</beans:property>
+		<beans:property name="defaultViews">
+			<beans:list>
+				<!-- JSON View -->
+				<beans:bean
+					class="org.springframework.web.servlet.view.json.MappingJackson2JsonView">
+				</beans:bean>
+
+				<!-- JAXB XML View -->
+				<beans:bean
+					class="org.springframework.web.servlet.view.xml.MarshallingView">
+					<beans:constructor-arg>
+						<beans:bean class="org.springframework.oxm.jaxb.Jaxb2Marshaller">
+							<beans:property name="classesToBeBound">
+								<beans:list>
+									<beans:value>
+										com.derkach.webstore.domain.Producers
+									</beans:value>
+									<beans:value>
+										com.derkach.webstore.domain.Producer
+									</beans:value>
+									<beans:value>
+										com.derkach.webstore.domain.Category
+									</beans:value>
+								</beans:list>
+							</beans:property>
+						</beans:bean>
+					</beans:constructor-arg>
+				</beans:bean>
+			</beans:list>
+		</beans:property>
 	</beans:bean>
+
 
 	<beans:bean id="multipartResolver"
 		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
@@ -54,23 +86,8 @@
 		<beans:property name="maxUploadSize" value="100000" />
 
 	</beans:bean>
-	
-	
-<!-- <bean id="jaxb2Marshaller" class="org.springframework.oxm.jaxb.Jaxb2Marshaller">
-	<property name="packagesToScan">
-		<list>
-			List of java packages that contain the jaxb generated classes
-			<value>com.intertech.consulting</value>
-			<value>org.w3._2000._09.xmldsig_</value>
-			<value>org.w3._2003._05.soap_envelope</value>
-			<value>org.xmlsoap.schemas.ws</value>
-		</list>
-	</property>
-</bean> -->
-	
-	<!-- <beans:bean name="xmlView" class="org.springframework.web.servlet.view.xml.MarshallingView"> 
-		<beans:property name="marshaller" ref="xmlMarshaller" /> <beans:property 
-		name="contentType" value="application/xml;charset=UTF-8" /> </beans:bean> -->
+
+
 
 	<beans:bean depends-on="dataSource1"
 		class="org.springframework.beans.factory.config.MethodInvokingBean">

@@ -26,8 +26,12 @@ public class ProducerService {
 		daoImpl.addProducer(producer);
 	}
 
-	public void deleteProducer(Producer producer) {
-		daoImpl.deleteProducer(producer);
+	public void deleteProducerByName(String name) {
+		daoImpl.deleteProducerByName(name);
+	}
+
+	public void deleteProducerById(Integer id) {
+		daoImpl.deleteProducerById(id);
 	}
 
 	public List<Producer> findAll() {

@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-/*@XmlRootElement(name = "producers")*/
+@XmlRootElement(name = "producers")
 // @XmlAccessorType (XmlAccessorType.classclassFIELD)
 public class Producers {
 	
@@ -16,7 +16,7 @@ public class Producers {
 		return producers;
 	}
 
-	/*@XmlElement(name = "list")*/
+	@XmlElement(name = "list")
 	public void setProducers(ArrayList<Producer> producers) {
 		this.producers = producers;
 	}

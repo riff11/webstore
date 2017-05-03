@@ -73,12 +73,11 @@ public class ProducersDaoImpl implements ProducersDao {
 	/**
 	 * Delete producer from db.
 	 */
-	public void deleteProducer(Producer producer) {
+	public void deleteProducerByName(String name) {
 		Connection conn = null;
 		Statement stmt = null;
 
-		String query = "delete from producers where name='"
-				+ producer.getName() + "'";
+		String query = "delete from producers where name='" + name + "'";
 
 		try {
 			conn = DriverManager.getConnection(env.getProperty("db.url"),
@@ -202,6 +201,26 @@ public class ProducersDaoImpl implements ProducersDao {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public void deleteProducerById(Integer id) {
+		Connection conn = null;
+		Statement stmt = null;
+
+		String query = "delete from producers where id='" + id + "'";
+
+		try {
+			conn = DriverManager.getConnection(env.getProperty("db.url"),
+					env.getProperty("db.user"), env.getProperty("db.password"));
+			stmt = conn.createStatement();
+			stmt.execute(query);
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 	}
 
 }

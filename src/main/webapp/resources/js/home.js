@@ -7,21 +7,21 @@ $(document)
 					selectArrays[0] = JSON.parse(jsonCategoryRoot);
 
 					// alert(productTypesRoot);
-					for (var i = 0; i < selectArrays[0].length; i++) {
+					for (var i = 0; i < selectArrays[0].categories.length; i++) {
 						$('#type,#typeAdd')
 								.append(
 										'<option value="' + (i + 1) + '">'
-												+ selectArrays[0][i].name
+												+ selectArrays[0].categories[i].name
 												+ '</option>');
 					}
 
 					if (jsonSiblingsCategory != "") {
 						selectArrays[1] = JSON.parse(jsonSiblingsCategory);
 						$("#child,#child_admin").prop('disabled', false);
-						for (var i = 0; i < selectArrays[1].length; i++) {
+						for (var i = 0; i < selectArrays[1].categories.length; i++) {
 							$('#child,#child_admin').append(
 									'<option value="' + (i + 1) + '">'
-											+ selectArrays[1][i].name
+											+ selectArrays[1].categories[i].name
 											+ '</option>');
 						}
 
@@ -47,12 +47,12 @@ $(document)
 										$
 												.ajax({
 													url : pageContext
-															+ '/catalog/getlist.json',
+															+ '/catalog/getlist',
 													type : 'POST',
 													contentType : 'application/json; charset=utf-8',
 													/* dataType : 'json', */
 													data : JSON
-															.stringify(selectArrays[0][type_id - 1].id),
+															.stringify(selectArrays[0].categories[type_id - 1].id),
 													error : function() {
 														alert("bad");
 													},
@@ -60,14 +60,14 @@ $(document)
 													success : function(listCat) {
 														jsonSiblingsCategory = listCat;
 														selectArrays[1] = listCat;
-														for (var i = 0; i < listCat.length; i++) {
+														for (var i = 0; i < listCat.categories.length; i++) {
 															$(
 																	'#child,#child_admin,#child_edit')
 																	.append(
 																			'<option value="'
 																					+ (i + 1)
 																					+ '">'
-																					+ listCat[i].name
+																					+ listCat.categories[i].name
 																					+ '</option>');
 														}
 														$(
@@ -88,7 +88,7 @@ $(document)
 									return;
 								}
 								var url = pageContext + "/catalog/"
-										+ selectArrays[1][type_id - 1].id;
+										+ selectArrays[1].categories[type_id - 1].id;
 								window.location.assign(url);
 							});
 					$("#child_admin").change(
@@ -100,7 +100,7 @@ $(document)
 									return;
 								}
 								var url = pageContext + "/admin/catalog/"
-										+ selectArrays[1][type_id - 1].id;
+										+ selectArrays[1].categories[type_id - 1].id;
 								window.location.assign(url);
 							});
 					$("#linkprice_sort").click(function() {

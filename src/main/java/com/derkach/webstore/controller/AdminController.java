@@ -1,5 +1,6 @@
 package com.derkach.webstore.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.derkach.webstore.domain.Categories;
 import com.derkach.webstore.domain.Category;
 import com.derkach.webstore.service.CategoryService;
 import com.derkach.webstore.service.ProductService;
@@ -24,7 +26,7 @@ import com.google.gson.Gson;
 public class AdminController {
 	private static final Logger logger = LoggerFactory
 			.getLogger(AdminController.class);
-
+	
 	@Autowired
 	ProductService productService;
 
@@ -39,7 +41,9 @@ public class AdminController {
 		ModelAndView mav = new ModelAndView("admin/admin");
 		Gson gson = new Gson();
 		List<Category> categoriesRoot = categoryService.findRoot();
-		String jsonCategoryRoot = gson.toJson(categoriesRoot);
+		Categories categories = new Categories();
+		categories.setCategories((ArrayList<Category>) categoriesRoot);
+		String jsonCategoryRoot = gson.toJson(categories);
 		// Root category types
 		mav.addObject("jsonCategoryRoot", jsonCategoryRoot);
 		logger.info("jsonCategoryRoot " + jsonCategoryRoot);
@@ -64,7 +68,9 @@ public class AdminController {
 		ModelAndView mav = new ModelAndView("admin/admin");
 		Gson gson = new Gson();
 		List<Category> categoriesRoot = categoryService.findRoot();
-		String jsonCategoryRoot = gson.toJson(categoriesRoot);
+		Categories categories = new Categories();
+		categories.setCategories((ArrayList<Category>) categoriesRoot);
+		String jsonCategoryRoot = gson.toJson(categories);
 		logger.info("jsonCategoryRoot " + jsonCategoryRoot);
 		// Root category types
 		mav.addObject("jsonCategoryRoot", jsonCategoryRoot);
@@ -88,7 +94,9 @@ public class AdminController {
 				break;
 			}
 		}
-		String jsonSibling = gson.toJson(categoriesSibling);
+		categories = new Categories();
+		categories.setCategories((ArrayList<Category>) categoriesSibling);
+		String jsonSibling = gson.toJson(categories);
 		mav.addObject("jsonSiblingsCategory", jsonSibling);
 		logger.info("siblingsCategory " + jsonSibling);
 		// selected root category
@@ -97,7 +105,6 @@ public class AdminController {
 		// selected child category
 		mav.addObject("childSelected", childSelected);
 		logger.info("selected child category " + childSelected);
-
 		return mav;
 	}
 }

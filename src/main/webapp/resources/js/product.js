@@ -17,7 +17,7 @@ $(document).ready(
 			}
 
 			$("#add").click(function() {
-				var arrChildCategory = jsonSiblingsCategory;
+				var arrChildCategory = jsonSiblingsCategory.categories;
 				idCategory = arrChildCategory[$("#child_edit").val() - 1].id;
 				idProducer = arrProducers[$("#producers").val() - 1].id;
 				$.ajax({
@@ -62,7 +62,7 @@ $(document).ready(
 			});
 
 			$("#EEdit1").click(function(i) {
-				var arrChildCategory = jsonSiblingsCategory;
+				var arrChildCategory = jsonSiblingsCategory.categories;
 				idCategory = arrChildCategory[$("#child_edit").val() - 1].id;
 				idProducer = arrProducers[$("#producers").val() - 1].id;
 				var id = $(this).attr('name');

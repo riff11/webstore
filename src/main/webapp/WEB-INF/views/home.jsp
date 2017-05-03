@@ -67,66 +67,10 @@
 			</div>
 
 		</div>
-		<!-- End of Left Sidebar -->
-		<!-- Start of Main Content Area -->
-		<!-- <div id="main_content"> -->
 
-
-
-
-		<%-- <div id="pages">
-
-				<c:url var="firstUrl" value="/1?${link}${ltype}${price}" />
-				<c:url var="lastUrl"
-					value="/${page.totalPages}?${link}${ltype}${price}" />
-				<c:url var="prevUrl"
-					value="/${currentIndex - 1}?${link}${ltype}${price}" />
-				<c:url var="nextUrl"
-					value="/${currentIndex + 1}?${link}${ltype}${price}" />
-
-			</div> --%>
 		<!-- Shop Window -->
 		<!-- Start of Page Header -->
 		<c:import url="/WEB-INF/views/show_window.jsp" />
-		<%-- 		<div id="main_content">
-			<div id="filter">
-
-				 По Цене:
-				от <input type="text" id="min" value="${min}"> до <input
-					type="text" id="max" value="${max}"> На складе: <input
-					type="checkbox" id="available"
-					<c:if test="${available}">checked</c:if>>
-				<button id="linkprice_sort">Найти</button>
-			</div>
-			<c:forEach var="prod" items="${list}">
-				<div id="new_item">
-					<div id="new_item_header">
-						<h1>${prod.name}</h1>
-
-					</div>
-					<div id="new_item_image">
-						<img src="${pageContext.request.contextPath}/${prod.image}"
-							height="150" alt="New Item Name" />
-					</div>
-					<div class="price">
-						<h2>${prod.price}</h2>
-					</div>
-					<div>
-						<h4 id="">${prod.description}</h4>
-					</div>
-
-					<div id="new_item_link"></div>
-
-				</div>
-			</c:forEach>
-
-
-			<c:if test="${empty list}">
-				<h1>Товаров не найдено</h1>
-			</c:if>
-
-		</div> --%>
-
 
 		<!-- End of Main Content Area -->
 		<div class="clearthis">&nbsp;</div>

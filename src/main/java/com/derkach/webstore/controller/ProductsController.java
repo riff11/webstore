@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.derkach.webstore.domain.Categories;
 import com.derkach.webstore.domain.Category;
 import com.derkach.webstore.domain.Producer;
 import com.derkach.webstore.domain.Product;
@@ -67,8 +68,6 @@ public class ProductsController {
 	@RequestMapping(value = "admin/deleteProduct", method = { RequestMethod.POST })
 	public String delProd(@RequestParam("name") String name) {
 		logger.info("delete product by name");
-		// model.addAttribute("list", productTypeService.findAll());
-		// model.addAttribute("list", productService.findAll());
 		productService.deleteProduct(name);
 		return "redirect:/admin/deleteProduct";
 	}
@@ -85,13 +84,15 @@ public class ProductsController {
 		// Root category types
 		Gson gson = new Gson();
 		List<Category> categoriesRoot = categoryService.findRoot();
-		String jsonCategoryRoot = gson.toJson(categoriesRoot);
+		Categories categories = new Categories();
+		categories.setCategories((ArrayList<Category>) categoriesRoot);		
+		String jsonCategoryRoot = gson.toJson(categories);
 		mav.addObject("jsonCategoryRoot", jsonCategoryRoot);
 		logger.info("jsonCategoryRoot " + jsonCategoryRoot);
 
 		// Producers
-		List<Producer> producersList = producerService.findAll();
-		String jsonProducersList = gson.toJson(producersList);
+		List<Producer> producersList = producerService.findAll();		
+		String jsonProducersList = gson.toJson(producersList);		
 		mav.addObject("jsonProducersList", jsonProducersList);
 		logger.info("jsonProducersList " + jsonProducersList);
 
@@ -100,7 +101,7 @@ public class ProductsController {
 
 	@RequestMapping(value = "admin/editProducts", method = RequestMethod.POST)
 	public ModelAndView editPro(@RequestBody Product product, Model model) {
-		logger.info("!!!!!!!!!!!!!!admin/editProducts");
+		logger.info("..................admin/editProducts");
 		productService.editProduct(product);
 		ModelAndView mav = new ModelAndView("product/edit_products");
 		List list = productService.findAll();
@@ -122,7 +123,7 @@ public class ProductsController {
 		return mav;
 	}
 
-	@RequestMapping(value = "admin/deleteFew.json", method = RequestMethod.POST)
+	@RequestMapping(value = "admin/deleteFew", method = RequestMethod.POST)
 	public String DeleteFew(@RequestBody ArrayList<Integer> indexList,
 			Model model, HttpServletRequest request) {
 
@@ -134,48 +135,27 @@ public class ProductsController {
 				}
 			}
 		}
-		/*
-		 * String[] ids = productService.getAllId().split(","); for (String a :
-		 * ids) { try { String s = request.getParameter(a); if (!s.isEmpty()) {
-		 * productService.delete(new Long(Integer.parseInt(s))); } } catch
-		 * (Exception e) {
-		 * 
-		 * }
-		 * 
-		 * }
-		 */
-
-		// productService.deleteProductByName(request.getParameter("name"));
 
 		return "redirect:/admin/deleteProduct";
 	}
 
-	// @RequestMapping(value = "admin/deleteProduct", method =
-	// RequestMethod.GET)
-	// public String listDel(Model model) {
-	// logger.info("Listing Walks");
-	// // model.addAttribute("types", productService.findAll());
-	// model.addAttribute("list", productService.findAll());
-	//
-	// }
 
-	@RequestMapping(value = "admin/addProduct.json", method = RequestMethod.POST)
+	@RequestMapping(value = "admin/addProduct", method = RequestMethod.POST)
 	public void addProduct(@RequestBody Product product) {
-		logger.info("Listing Walks");
-		System.out.println("!!!!!!!!!!!!!!admin/addProduct");
+		logger.info("................add Product");
 		productService.addProduct(product);
 	}
 
 	@RequestMapping(value = "admin/addProduct", method = RequestMethod.GET)
 	public ModelAndView getProducts() {
 		logger.info("Listing Walks");
-		// model.addAttribute("types", productService.findAll());
 		ModelAndView mav = new ModelAndView("product/addProduct");
-		// model.addAttribute("types", productService.findAll());
 		// Root category types
 		Gson gson = new Gson();
 		List<Category> categoriesRoot = categoryService.findRoot();
-		String jsonCategoryRoot = gson.toJson(categoriesRoot);
+		Categories categories = new Categories();
+		categories.setCategories((ArrayList<Category>) categoriesRoot);
+		String jsonCategoryRoot = gson.toJson(categories);
 		mav.addObject("jsonCategoryRoot", jsonCategoryRoot);
 		logger.info("jsonCategoryRoot " + jsonCategoryRoot);
 
@@ -183,11 +163,6 @@ public class ProductsController {
 		String jsonProducersList = gson.toJson(producersList);
 		mav.addObject("jsonProducersList", jsonProducersList);
 		logger.info("jsonProducersList " + jsonProducersList);
-		// Child category products
-		// List<Category> categoriesSibling = categoryService.findSiblings(id);
-		// String jsonSibling = gson.toJson(categoriesSibling);
-		// mav.addObject("jsonSiblingsCategory", jsonSibling);
-		// logger.info("siblingsCategory " + jsonSibling);
 		return mav;
 	}
 

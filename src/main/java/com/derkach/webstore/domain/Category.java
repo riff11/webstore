@@ -1,7 +1,10 @@
 package com.derkach.webstore.domain;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 
 
+@XmlRootElement(name="category")
 public class Category {
 	
 	private Integer id;
@@ -23,18 +26,21 @@ public class Category {
 	public Integer getId() {
 		return id;
 	}
+	@XmlElement(name="id")
 	public void setId(Integer id) {
 		this.id = id;
 	}
 	public String getName() {
 		return name;
 	}
+	@XmlElement(name="id")
 	public void setName(String name) {
 		this.name = name;
 	}
 	public Integer getParentId() {
 		return parentId;
 	}
+	@XmlElement(name="id")
 	public void setParentId(Integer parentId) {
 		this.parentId = parentId;
 	}

@@ -2,7 +2,7 @@ $(document).ready(
 
 function() {
 	$("#addCategory").click(function() {
-		var arr = JSON.parse(jsonCategoryRoot);
+		var arr = JSON.parse(jsonCategoryRoot).categories;
 		id = null;
 		if ($("#typeAdd").val() != 0)
 			id = arr[$("#typeAdd").val() - 1].id;
@@ -16,11 +16,11 @@ function() {
 				parentId : id
 			}),
 			error : function() {
-//				alert("bad");
+				alert("bad");
 				location.reload();
 			},
 			success : function() {
-//				alert("OK");
+				alert("OK");
 				location.reload();
 			}
 		});
@@ -35,11 +35,11 @@ function() {
 				name : $("input[name='DeleteCategory']").val()
 			}),
 			error : function() {
-//				alert("bad");
+				alert("bad");
 				location.reload();
 			},
 			success : function() {
-//				alert("OK");
+				alert("OK");
 				location.reload();
 			}
 		});
