@@ -43,19 +43,6 @@ public class ProductsController {
 	@Autowired
 	CategoryService categoryService;
 
-	@RequestMapping(value = "admin/form", method = RequestMethod.POST)
-	public String processForm(@RequestParam MultipartFile file, Model model,
-			HttpServletRequest request, HttpSession session) {
-		if (file == null)
-			System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! No File");
-		else {
-			System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@ File exist");
-		}
-		productService.uploadFile(file, request, session,
-				Integer.parseInt(request.getParameter("idpicture")));
-		return "redirect:addProduct";
-	}
-
 	@RequestMapping(value = "admin/deleteProduct", method = { RequestMethod.GET })
 	public String delProd(Model model) {
 		logger.info("delete product view");
@@ -76,7 +63,6 @@ public class ProductsController {
 	public ModelAndView editProGet(
 			@PathVariable(value = "product", required = false) Product product,
 			Model model) {
-		// logger.info("!!!!!!!!!!!!!!admin/editProducts");
 		ModelAndView mav = new ModelAndView("product/edit_products");
 		List list = productService.findAll();
 		System.out.println(list);

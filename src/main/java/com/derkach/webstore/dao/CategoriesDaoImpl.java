@@ -35,7 +35,7 @@ public class CategoriesDaoImpl implements CategoriesDao {
 
 		String query = "insert into categories (`name`, `parent_id`)"
 				+ " VALUES (?,?)";
-		
+
 		logger.info("query formed with all the argument - " + query);
 
 		jdbcTemplate.update(query,
@@ -48,8 +48,8 @@ public class CategoriesDaoImpl implements CategoriesDao {
 	 */
 	public void deleteCategory(Category category) {
 
-		String query = "delete from categories where name='" + category.getName()
-				+ "'";
+		String query = "delete from categories where name='"
+				+ category.getName() + "'";
 
 		logger.info("query formed with all the argument - " + query);
 
@@ -70,15 +70,7 @@ public class CategoriesDaoImpl implements CategoriesDao {
 		logger.info("query formed with all the argument - " + queryinitial);
 
 		RowMapper rm = null;
-		List<Category> listcontacct = jdbcTemplate.query(queryinitial,
-				new RowMapper() {
-					public Object mapRow(ResultSet resultSet, int rowNum)
-							throws SQLException {
-						return new Category(resultSet.getInt("id"), resultSet
-								.getString("name"), resultSet
-								.getInt("parent_id"));
-					}
-				});
+		List<Category> listcontacct = getlist(queryinitial);
 
 		return listcontacct;
 	}
@@ -94,15 +86,7 @@ public class CategoriesDaoImpl implements CategoriesDao {
 		logger.info("query formed with all the argument - " + queryinitial);
 
 		RowMapper rm = null;
-		List<Category> CategoryList = jdbcTemplate.query(queryinitial,
-				new RowMapper() {
-					public Object mapRow(ResultSet resultSet, int rowNum)
-							throws SQLException {
-						return new Category(resultSet.getInt("id"), resultSet
-								.getString("name"), resultSet
-								.getInt("parent_id"));
-					}
-				});
+		List<Category> CategoryList = getlist(queryinitial);
 
 		return CategoryList;
 	}
@@ -118,15 +102,7 @@ public class CategoriesDaoImpl implements CategoriesDao {
 		logger.info("query formed with all the argument - " + queryinitial);
 
 		RowMapper rm = null;
-		List<Category> CategoryList = jdbcTemplate.query(queryinitial,
-				new RowMapper() {
-					public Object mapRow(ResultSet resultSet, int rowNum)
-							throws SQLException {
-						return new Category(resultSet.getInt("id"), resultSet
-								.getString("name"), resultSet
-								.getInt("parent_id"));
-					}
-				});
+		List<Category> CategoryList = getlist(queryinitial);
 
 		return CategoryList;
 	}
@@ -150,18 +126,20 @@ public class CategoriesDaoImpl implements CategoriesDao {
 		String queryinitial = "select * from categories where id=" + i;
 
 		RowMapper rm = null;
-		List<Category> listCategory = jdbcTemplate.query(queryinitial,
-				new RowMapper() {
-					public Object mapRow(ResultSet resultSet, int rowNum)
-							throws SQLException {
-						return new Category(resultSet.getInt("id"), resultSet
-								.getString("name"), resultSet
-								.getInt("parent_id"));
-					}
-				});
+		List<Category> listCategory = getlist(queryinitial);
 		logger.info("query formed with all the argument - " + queryinitial);
 
 		return searchCategoriesByParentsId(String.valueOf(listCategory.get(0)
 				.getParentId()));
+	}
+
+	protected List<Category> getlist(String queryinitial) {
+		return jdbcTemplate.query(queryinitial, new RowMapper() {
+			public Object mapRow(ResultSet resultSet, int rowNum)
+					throws SQLException {
+				return new Category(resultSet.getInt("id"), resultSet
+						.getString("name"), resultSet.getInt("parent_id"));
+			}
+		});
 	}
 }

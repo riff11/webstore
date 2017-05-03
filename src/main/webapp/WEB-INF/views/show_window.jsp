@@ -22,15 +22,11 @@
 					<h1>${prod.name}</h1>
 
 				</div>
-				<%-- <div id="new_item_image">
-						<img src="${pageContext.request.contextPath}/${prod.image}"
-							height="150" alt="New Item Name" />
-					</div> --%>
 				<div class="price">
 					<h2>${prod.price}</h2>
 				</div>
 				<div>
-					<h4 id="">${prod.description}</h4>
+					<h5 id="">${prod.description}</h5>
 				</div>
 
 				<div id="new_item_link"></div>

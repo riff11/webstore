@@ -34,11 +34,11 @@ $(document).ready(
 						"available" : $('#available').is(':checked')
 					}),
 					error : function() {
-						alert("bad");
+//						alert("bad");
 						location.reload();
 					},
 					success : function() {
-						alert("OK");
+//						alert("OK");
 						location.reload();
 					}
 				});
@@ -82,11 +82,11 @@ $(document).ready(
 						"available" : $('#Editavailable').is(':checked')
 					}),
 					error : function() {
-						alert("bad");
+//						alert("bad");
 						change(id);
 					},
 					success : function() {
-						alert("OK");
+//						alert("OK");
 						change(id);
 					}
 				})

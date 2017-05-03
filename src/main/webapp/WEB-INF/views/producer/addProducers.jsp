@@ -12,15 +12,13 @@
 <script type="text/javascript"
 	src="<c:url value="/resources/js/jquery-1.9.1.js" />"></script>
 <script type="text/javascript"
-	src="<c:url value="/resources/scripts/jquery.tablesorter.js" />"></script>
+	src="<c:url value="/resources/js/jquery.tablesorter.js" />"></script>
 <script>
 	var jsonSiblingsCategory = '${jsonSiblingsCategory}';
 	var childSelected = "${childSelected}";
 	var jsonCategoryRoot = '${jsonCategoryRoot}';
 	var pageContext = "${pageContext.request.contextPath}";
 	var rootSelected = "${rootSelected}";
-	/* var producers= "${list}"; */
-	/* alert('jsonCategoryRoot:' + '${jsonCategoryRoot}'); */
 </script>
 <script type="text/javascript"
 	src="<c:url value="/resources/js/producer.js" />"></script>

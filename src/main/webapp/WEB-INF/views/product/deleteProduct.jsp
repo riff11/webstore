@@ -11,7 +11,7 @@
 <script type="text/javascript"
 	src="<c:url value="/resources/js/jquery-1.9.1.js" />"></script>
 <script type="text/javascript"
-	src="<c:url value="/resources/scripts/jquery.tablesorter.js" />"></script>
+	src="<c:url value="/resources/js/jquery.tablesorter.js" />"></script>
 <script>
 	var jsonSiblingsCategory = '${jsonSiblingsCategory}';
 	var childSelected = "${childSelected}";
@@ -63,7 +63,7 @@
 								<th>Цена</th>
 								<th>Производитель</th>
 								<th>Категория</th>
-								<th>Картинка</th>
+								<!-- <th>Картинка</th> -->
 								<th>Описание</th>
 								<th>На складе</th>
 								<th>Удалить</th>
@@ -77,7 +77,7 @@
 									<td id="price${prod.id }">${prod.price}</td>
 									<td id="producer${prod.id }">${prod.producer}</td>
 									<td id="category${prod.id }">${prod.category}</td>
-									<td id="picture${prod.id }">${prod.image}</td>
+									<%-- <td id="picture${prod.id }">${prod.image}</td> --%>
 									<td id="descr${prod.id }">${prod.description}</td>
 									<td id="available${prod.id }">${prod.available}</td>
 									<td>

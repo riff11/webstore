@@ -64,10 +64,6 @@ public class ProducersDaoImpl implements ProducersDao {
 			e.printStackTrace();
 		}
 
-		// jdbcTemplate.update(
-		// query,
-		// new Object[] { producer.getName()});
-
 	}
 
 	/**
@@ -89,9 +85,6 @@ public class ProducersDaoImpl implements ProducersDao {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
-		// jdbcTemplate.update(query);
-
 	}
 
 	/**
@@ -124,23 +117,6 @@ public class ProducersDaoImpl implements ProducersDao {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
-		// RowMapper rm = null;
-		// List<Producer> listcontacct =
-		//
-		// jdbcTemplate.query(queryinitial,
-		// new RowMapper() {
-		// public Object mapRow(ResultSet resultSet, int rowNum)
-		// throws SQLException {
-		// return new Producer(resultSet.getInt("id"), resultSet
-		// .getString("name"), resultSet.getString("dob"),
-		// resultSet.getString("email"), resultSet
-		// .getString("phone"), resultSet
-		// .getString("address"), resultSet
-		// .getString("PINCODE"), resultSet
-		// .getString("country"));
-		// }
-		// });
 
 		return listProducers;
 	}
@@ -185,8 +161,6 @@ public class ProducersDaoImpl implements ProducersDao {
 		Statement stmt = null;
 		String queryinitial = "update producers set name='"
 				+ producer.getName() + "' where id='" + producer.getId() + "'";
-
-		// jdbcTemplate.update(queryinitial);
 
 		System.out.println("query formed with all the argument - "
 				+ queryinitial);

@@ -32,11 +32,9 @@ public class CategoriesController {
 
 	@RequestMapping(value = "catalog/getRoot", method = RequestMethod.GET, produces = {"application/json","application/xml"})
 	public @ResponseBody Categories getRootCategory() {
-//		ModelAndView mav = new ModelAndView("home");
 		List<Category> categories = categoryService.findRoot();
 		Categories categories2 = new Categories();
 		categories2.setCategories((ArrayList<Category>) categories);
-//		mav.addObject("categories", categories2);
 		return categories2;
 	}
 
@@ -48,7 +46,6 @@ public class CategoriesController {
 						String.valueOf('"'), ""));
 		Categories categories2 = new Categories();
 		categories2.setCategories((ArrayList<Category>) categories);
-//		 model.addAttribute("categories", categories2);
 		return categories2;
 	}	
 

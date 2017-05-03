@@ -28,7 +28,7 @@ public class Producer {
 		return id;
 	}
 
-	/*@XmlElement(name="id")*/
+	@XmlElement(name="id")
 	public void setId(Integer id) {
 		this.id = id;
 	}
@@ -37,7 +37,7 @@ public class Producer {
 		return name;
 	}
 
-	/*@XmlElement(name="name")*/
+	@XmlElement(name="name")
 	public void setName(String name) {
 		this.name = name;
 	}

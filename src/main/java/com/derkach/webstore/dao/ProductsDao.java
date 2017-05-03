@@ -24,8 +24,6 @@ public interface ProductsDao {
 
 	void addProduct(Product product);
 
-	// void updateProduct(Product product);
-
 	List findAll();
 
 	List<Product> searchProductByCategory(int i);

@@ -1,6 +1,9 @@
 package com.derkach.webstore.domain;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 
+@XmlRootElement(name = "product")
 public class Product {
 	
 	private Integer id;
@@ -73,7 +76,7 @@ public class Product {
 	public String getProducer() {
 		return producer;
 	}
-
+	@XmlElement(name = "producer")
 	public void setProducer(String producer) {
 		this.producer = producer;
 	}
@@ -81,7 +84,7 @@ public class Product {
 	public String getCategory() {
 		return category;
 	}
-
+	@XmlElement(name = "category")
 	public void setCategory(String category) {
 		this.category = category;
 	}
@@ -89,24 +92,28 @@ public class Product {
 	public Integer getId() {
 		return id;
 	}
+	@XmlElement(name = "id")
 	public void setId(Integer id) {
 		this.id = id;
 	}
 	public String getName() {
 		return name;
 	}
+	@XmlElement(name = "name")
 	public void setName(String name) {
 		this.name = name;
 	}
 	public String getPrice() {
 		return price;
 	}
+	@XmlElement(name = "price")
 	public void setPrice(String price) {
 		this.price = price;
 	}
 	public String getDescription() {
 		return description;
 	}
+	@XmlElement(name = "description")
 	public void setDescription(String description) {
 		this.description = description;
 	}
@@ -114,7 +121,7 @@ public class Product {
 	public Boolean getAvailable() {
 		return available;
 	}
-
+	@XmlElement(name = "available")
 	public void setAvailable(Boolean available) {
 		this.available = available;
 	}
@@ -122,18 +129,21 @@ public class Product {
 	public String getImage() {
 		return image;
 	}
+	@XmlElement(name = "image")
 	public void setImage(String image) {
 		this.image = image;
 	}
 	public Integer getProducer_fk() {
 		return producer_fk;
 	}
+	@XmlElement(name = "producer_fk")
 	public void setProducer_fk(Integer producer_fk) {
 		this.producer_fk = producer_fk;
 	}
 	public Integer getCategories_fk() {
 		return categories_fk;
 	}
+	@XmlElement(name = "categories_fk")
 	public void setCategories_fk(Integer categories_fk) {
 		this.categories_fk = categories_fk;
 	}

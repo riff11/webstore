@@ -27,29 +27,12 @@
 			<ul>
 				<li><a
 					href='${pageContext.request.contextPath}/admin/addProduct'>Продукты</a></li>
-				<!-- <li><a href="./Status">Статус заказа</a></li> -->
-				<!-- <li><a href="./shopcartinfo">Корзина</a></li> -->
-
-				<%-- <%
-					if ( request.isUserInRole("ROLE_ADMIN")) {
-				%> --%>
 				<li><a
 					href='${pageContext.request.contextPath}/admin/addCategory'>Категории</a></li>
 
 				<li><a
 					href='${pageContext.request.contextPath}/admin/addProducers'>Производители</a></li>
 
-				<!-- <li class="last"><a href="./manager1">Менеджер</a></li> -->
-				<%-- <%
-					}
-				%> --%>
-				<%-- <%
-					if ( request.isUserInRole("ROLE_MANAGER")) {
-				%>
-				<li><a href="./manager1">Менеджер</a></li>
-				<%
-					}
-				%> --%>
 			</ul>
 		</div>
 

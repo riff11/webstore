@@ -18,11 +18,11 @@ function() {
 				dataType : "json",
 				data : JSON.stringify(idProductList),
 				error : function() {
-					alert("bad");
+//					alert("bad");
 					location.reload();
 				},
 				success : function() {
-					alert("ok");
+//					alert("ok");
 					location.reload();
 				}
 			});
@@ -37,11 +37,11 @@ function() {
 			dataType : "json",
 			data : $("input[name='AddProducer']").val(),
 			error : function() {
-				alert("bad");
+//				alert("bad");
 				location.reload();
 			},
 			success : function() {
-				alert("OK");
+//				alert("OK");
 				location.reload();
 			}
 		});
@@ -54,11 +54,11 @@ function() {
 			dataType : "json",
 			data : $("input[name='DeleteProducer']").val(),
 			error : function() {
-				alert("bad");
+//				alert("bad");
 				location.reload();
 			},
 			success : function() {
-				alert("OK");
+//				alert("OK");
 				location.reload();
 			}
 		});

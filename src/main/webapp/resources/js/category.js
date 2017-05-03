@@ -16,11 +16,11 @@ function() {
 				parentId : id
 			}),
 			error : function() {
-				alert("bad");
+//				alert("bad");
 				location.reload();
 			},
 			success : function() {
-				alert("OK");
+//				alert("OK");
 				location.reload();
 			}
 		});
@@ -35,11 +35,11 @@ function() {
 				name : $("input[name='DeleteCategory']").val()
 			}),
 			error : function() {
-				alert("bad");
+//				alert("bad");
 				location.reload();
 			},
 			success : function() {
-				alert("OK");
+//				alert("OK");
 				location.reload();
 			}
 		});

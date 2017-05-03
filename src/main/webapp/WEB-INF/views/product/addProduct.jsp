@@ -17,7 +17,6 @@
 	var pageContext = '${pageContext.request.contextPath}';
 	var rootSelected = '${rootSelected}';
 	var jsonProducersList = '${jsonProducersList}';
-	/* alert('jsonCategoryRoot:' + '${jsonCategoryRoot}'); */
 </script>
 <script type="text/javascript"
 	src="<c:url value="/resources/js/home.js"/>"></script>
@@ -79,27 +78,6 @@
 		</fieldset>
 
 		<br>
-		<%-- <fieldset>
-			<h1>Загрузить картинку</h1>
-			<br>
-			<c:if test="${not empty originalFileName}">
-				<h2>
-					Uploaded file's name is:
-					<c:out value="${originalFileName}" />
-				</h2>
-			</c:if>
-			<div>
-				<form action="form" method="post" enctype="multipart/form-data">
-					<div>
-						<input type="file" name="file" /> <input type="hidden"
-							name="idpicture" value="0" />
-					</div>
-					<div>
-						<input type="submit" id="idp" value="Upload" />
-					</div>
-				</form>
-			</div>
-		</fieldset> --%>
 		<br>
 
 	</div>

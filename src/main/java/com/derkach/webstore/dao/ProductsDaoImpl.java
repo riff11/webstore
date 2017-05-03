@@ -67,12 +67,6 @@ public class ProductsDaoImpl implements ProductsDao {
 	public List findAll() {
 		String queryInitial = "select  products.categories_fk, products.id, products.name, products.price, products.image, products.description, products.available, categories.name as category , producers.name as producer from products inner join categories on  products.categories_fk=categories.id    inner join  producers on products.producer_fk = producers.id";
 
-		// "select  products.*, categories.name as category , producers.name as producer from products inner join categories on categories.id = products.categories_fk   inner join  producers on products.producer_fk = producers.id";
-		/*
-		 * "select products.*, categories.name, producers.name " +
-		 * " from products inner join categories on categories.id = products.categories_fk "
-		 * + " inner join  producers on products.producer_fk = producers.id";
-		 */
 		logger.info("query formed with all the argument - " + queryInitial);
 
 		return jdbcTemplateQueryAll(queryInitial);
@@ -97,24 +91,6 @@ public class ProductsDaoImpl implements ProductsDao {
 
 		return userList;
 	}
-
-	// /**
-	// * Update user record.
-	// */
-	// public void updateProduct(Product product) {
-	// String queryinitial = "update products set name='" + product.getName()
-	// + "', price='" + product.getPrice() + "', description='"
-	// + product.getDescription() + "',image='" + product.getImage()
-	// + "', available='" + product.getAvailable()
-	// + "' , producer_fk='" + product.getProducer_fk()
-	// + "', categories_fk='" + product.getCategories_fk()
-	// + "' where id='" + product.getId() + "'";
-	//
-	// logger.info("query formed with all the argument - " + queryinitial);
-	//
-	// jdbcTemplate.update(queryinitial);
-	//
-	// }
 
 	/**
 	 * Update user record.

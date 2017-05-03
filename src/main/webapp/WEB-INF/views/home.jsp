@@ -17,7 +17,6 @@
 	var jsonCategoryRoot = '${jsonCategoryRoot}';
 	var pageContext = "${pageContext.request.contextPath}";
 	var rootSelected = "${rootSelected}";
-	/* alert('jsonCategoryRoot:' + '${jsonCategoryRoot}'); */
 </script>
 <script type="text/javascript"
 	src="<c:url value="/resources/js/home.js" />"></script>

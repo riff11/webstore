@@ -39,7 +39,6 @@ public class ProductService {
 	}
 
 	public void addProduct(Product product) {
-		System.out.print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" + product);
 		if (product != null)
 			daoImpl.addProduct(product);
 	}
@@ -65,9 +64,6 @@ public class ProductService {
 		return daoImpl.searchProductByCategory(i);
 	}
 
-	// public void updateProduct(Product product) {
-	// daoImpl.updateProduct(product);
-	// }
 
 	public void deleteProduct(Integer id) {
 		if (id != null) {
@@ -142,22 +138,7 @@ public class ProductService {
 				String realContextPath = context.getRealPath("/");
 				String filePath = realContextPath + "resources\\images\\"
 						+ orgName;
-				// Collection<Product> t = (Collection<Product>) findAll();
-				// if (id == 0) {
-				// if (lastId != t.size()) {
-				// y = t.size();
-				// lastId = y;
-				// }
-				// } else {
 				y = id;
-				// }
-				// for (Product e : t) {
-				// if (e.getId().intValue() == (y)) {
-				// e.setImageLink("resources/images/" + orgName);
-				// save(e);
-				// break;
-				// }
-				// }
 				List<Product> list = searchProduct(id);
 				if (list != null && !list.isEmpty()) {
 					list.get(0).setImage("resources/images/" + orgName);

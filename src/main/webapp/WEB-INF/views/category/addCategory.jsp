@@ -16,7 +16,6 @@
 	var jsonCategoryRoot = '${jsonCategoryRoot}';
 	var pageContext = "${pageContext.request.contextPath}";
 	var rootSelected = "${rootSelected}";
-	/* alert('jsonCategoryRoot:' + '${jsonCategoryRoot}'); */
 </script>
 <script type="text/javascript"
 	src="<c:url value="/resources/js/home.js" />"></script>
@@ -55,15 +54,6 @@
 							</c:forEach> --%>
 							</select>
 						</div>
-						<%-- <div class="row">
-							<!-- Создаем поле со списком -->
-							<select id="child_edit" disabled>
-								<option value="0">Выберите из списка</option>
-								<c:forEach var="type" items="${productTypes}" varStatus="loop">
-								<option value="${loop.getIndex()+1}">${type.getName()}</option>
-							</c:forEach>
-							</select>
-						</div> --%>
 					</form>
 					 <input
 						type="submit" value="AddCategory" id="addCategory"> <br>
