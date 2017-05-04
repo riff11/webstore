@@ -12,14 +12,18 @@ import com.derkach.webstore.domain.Category;
  */
 public interface CategoriesDao {
 
-	void searchCategory(Category user);
+	List<Category> searchCategoriesByParentsId(String categoryId);
 
-	List<Category> editCategory(Category user);
+	void editCategory(Category category);
 	
-	void deleteCategory(Category user);
+	void deleteCategory(Category category);
 	
 	List<Category> findAll();
 	
-	void updateCategory(Category user);
+	void addCategory(Category category);
+	
+	public List<Category> findRoot();
+	
+	public List<Category> findSiblings(int i);
 
 }

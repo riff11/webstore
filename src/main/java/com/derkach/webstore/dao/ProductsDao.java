@@ -1,26 +1,42 @@
 package com.derkach.webstore.dao;
 
-
 import java.util.List;
 
 import com.derkach.webstore.domain.Product;
 
-
 /**
- * dao interface
+ * Dao interface product.
+ * 
  * @author alex
- *
+ * 
  */
 public interface ProductsDao {
 
-	void searchCategory(Product Product);
+	List<Product> searchProduct(Product product);
 
-	List<Product> editCategory(Product Product);
-	
-	void deleteCategory(Product Product);
-	
-	List<Product> findAll();
-	
-	void updateCategory(Product Product);
+	List<Product> searchProduct(int id);
 
+	void editProduct(Product product);
+
+	void deleteProduct(int integer);
+
+	void deleteProduct(String name);
+
+	void addProduct(Product product);
+
+	List findAll();
+
+	List<Product> searchProductByCategory(int i);
+
+	List<Product> filter(boolean available);
+
+	List<Product> filter(int min, int max);
+
+	List<Product> filter(int category_fk, boolean available);
+
+	List<Product> filter(int category_fk, int min, int max);
+
+	List<Product> filter(int min, int max, boolean available);
+
+	List<Product> filter(int category_fk, int min, int max, boolean available);
 }

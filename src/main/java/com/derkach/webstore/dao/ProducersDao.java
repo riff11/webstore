@@ -1,26 +1,27 @@
 package com.derkach.webstore.dao;
 
-
 import java.util.List;
 
 import com.derkach.webstore.domain.Producer;
 
-
 /**
- * dao interface
+ * Dao interface.
+ * 
  * @author alex
  *
  */
 public interface ProducersDao {
 
-	void searchCategory(Producer Producer);
+	List<Producer> searchProducer(Producer producer);
 
-	List<Producer> editCategory(Producer Producer);
-	
-	void deleteCategory(Producer Producer);
-	
+	void editProducer(Producer producer);
+
+	void deleteProducerByName(String name);
+
+	void deleteProducerById(Integer id);
+
 	List<Producer> findAll();
-	
-	void updateCategory(Producer Producer);
+
+	void addProducer(Producer producer);
 
 }
